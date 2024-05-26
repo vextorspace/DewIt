@@ -1,0 +1,15 @@
+# Inbox
+- [x] test that android notification builder is an object
+- [x] test that android notification builder has a method called build
+- [x] test that android notification builder creates a Notification object
+- [x] test that android notification builder creates a Notification object with the correct properties
+  - [x] test that android notification builder creates a Notification object with the correct title
+  - [x] test that android notification builder creates a Notification object with the correct content
+  - [x] test that android notification builder creates a Notification object with the correct channel id
+  - [x] test that android notification builder creates a Notification object with the correct priority
+  - [x] test that android notification builder creates a Notification object with the correct small icon
+- [ ] check that system tray is supported
+- [ ] check that notifications set up properly
+- [x] check that desktop systray notification trayicon added to systray
+- [x] check that desktop systray notification trayicon sends notification
+- [x] commonMain/Notification

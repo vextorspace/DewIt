@@ -1,4 +1,4 @@
-package com.ronnev.testing
+package com.ronnev
 
 import App
 import android.os.Bundle

@@ -79,7 +79,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.ronnev.testing"
+    namespace = "com.ronnev"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -89,7 +89,7 @@ android {
     sourceSets["androidTest"].resources.srcDirs("src/commonTest/resources")
 
     defaultConfig {
-        applicationId = "com.ronnev.testing"
+        applicationId = "com.ronnev"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -121,7 +121,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.ronnev.testing"
+            packageName = "com.ronnev"
             packageVersion = "1.0.0"
         }
     }

@@ -1,4 +1,4 @@
-rootProject.name = "KotlinMultiplatformTesting"
+rootProject.name = "DewIt"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

@@ -12,8 +12,8 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import kotlinmultiplatformtesting.composeapp.generated.resources.Res
-import kotlinmultiplatformtesting.composeapp.generated.resources.compose_multiplatform
+import dewit.composeapp.generated.resources.Res
+import dewit.composeapp.generated.resources.compose_multiplatform
 import notifications.NotificationSystem
 
 @OptIn(ExperimentalResourceApi::class)

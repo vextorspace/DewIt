@@ -41,7 +41,7 @@ class AndroidNotificationSystem(val context: Context?) :
             .withTitle(title)
             .withText(message)
             .withChannelId(channel.id)
-            .withSmallIcon(com.ronnev.testing.R.drawable.icon)
+            .withSmallIcon(com.ronnev.R.drawable.icon)
             .build()
 
         send(notification)

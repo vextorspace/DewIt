@@ -17,7 +17,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
-    val cards = remember {mutableStateOf(listOf<Item>(Item("Card 1"), Item("Card 2"), Item("Card 3")))}
+    val items = remember {mutableStateOf(listOf<Item>(Item("Card 1"), Item("Card 2"), Item("Card 3")))}
     val textState = remember { mutableStateOf("")}
 
     MaterialTheme {
@@ -31,11 +31,11 @@ fun App() {
                     onValueChange = { textState.value = it },
                     label = { Text("Enter text") }
                 )
-                Button(onClick = { cards.value += Item(textState.value) }) {
+                Button(onClick = { items.value += Item(textState.value) }) {
                     Text("Add Card")
                 }
             }
-            cards.value.map { it.makeCard() }
+            items.value.map { it.makeCard() }
         }
     }
 }

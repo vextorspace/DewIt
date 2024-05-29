@@ -19,14 +19,22 @@ fun App() {
             Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Card(modifier = Modifier.padding(6.dp),
-                elevation = 3.dp) {
-                Column {
-                    Text(text = "Create a card",
-                        style = MaterialTheme.typography.h5)
-                    Text("- create card body")
-                }
-            }
+            makeCard("Create a card", "- create card body")
+        }
+    }
+}
+
+private fun makeCard(title: String, content: String) {
+    Card(
+        modifier = Modifier.padding(6.dp),
+        elevation = 3.dp
+    ) {
+        Column {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.h5
+            )
+            Text(content)
         }
     }
 }

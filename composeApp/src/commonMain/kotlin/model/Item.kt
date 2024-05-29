@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-data class Item(val title: String, val content: String) {
+data class Item(val content: String) {
     @Composable fun makeCard() {
         Card(
             modifier = Modifier.padding(6.dp),

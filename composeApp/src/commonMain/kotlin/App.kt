@@ -16,7 +16,7 @@ fun App() {
             Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Item("Create a card", "- create card body").makeCard()
+            Item("create card").makeCard()
         }
     }
 }

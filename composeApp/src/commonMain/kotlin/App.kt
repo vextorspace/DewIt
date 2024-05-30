@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import model.Item
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import view.ItemCardMaker
 
 
 @Composable
@@ -35,7 +36,7 @@ fun App() {
                     Text("Add Card")
                 }
             }
-            items.value.map { it.makeCard() }
+            items.value.map { ItemCardMaker(it).compose() }
         }
     }
 }

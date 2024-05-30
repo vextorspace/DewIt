@@ -4,4 +4,6 @@
 - [x] run tests
 - [x] run app in android emulator
 - [x] add a single card to display
-- [ ] display a list of cards
+- [x] display a list of cards
+- [ ] delete a card
+- [ ] edit a card

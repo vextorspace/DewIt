@@ -32,14 +32,14 @@ class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>) {
             Column {
                 if(item == selectedCard.value) {
                     TextField(
-                        value = item.content,
+                        value = contentState.value,
                         onValueChange = {
                             contentState.value = it
                             item.content = it
                         }
                     )
                 } else {
-                    Text(item.content)
+                    Text(contentState.value)
                 }
             }
         }

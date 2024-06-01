@@ -6,5 +6,12 @@
 - [x] add a single card to display
 - [x] display a list of cards
 - [x] change to lazyColumn
-- [ ] delete a card
+- [x] delete a card
 - [x] edit a card
+- [ ] load cards from a resource
+- [ ] save cards to the resource
+- [ ] update database with saved changes
+- [ ] resolve conflicts in database
+- [ ] name a list of items
+- [ ] move items from lists
+- [ ] move items in a list

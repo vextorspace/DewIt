@@ -15,3 +15,7 @@
 - [ ] name a list of items
 - [ ] move items from lists
 - [ ] move items in a list
+- [ ] add a list of items
+- [ ] delete a list of items
+- [ ] move a list
+- [ ] move items in a list

@@ -114,9 +114,6 @@ android {
         debugImplementation(libs.compose.ui.tooling)
     }
 }
-dependencies {
-    implementation(libs.androidx.ui.desktop)
-}
 
 compose.desktop {
     application {

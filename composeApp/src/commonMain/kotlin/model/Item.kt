@@ -1,4 +1,4 @@
 package model
 
-data class Item(val content: String) {
+data class Item(var content: String) {
 }

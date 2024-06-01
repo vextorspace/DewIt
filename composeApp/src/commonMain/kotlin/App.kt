@@ -6,10 +6,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import model.Item
@@ -23,6 +20,14 @@ fun App() {
     val itemList = remember {mutableStateListOf(Item("Card 1"), Item("Card 2"), Item("Card 3"))}
     val textState = remember { mutableStateOf("")}
     val selectedCard = remember { mutableStateOf<Item?>(null)}
+
+    val onDeleteItem: (Item) -> Unit = {
+        val index = itemList.indexOf(it)
+
+        if(index != -1) {
+            itemList.removeAt(index)
+        }
+    }
 
     MaterialTheme {
         LazyColumn(
@@ -41,9 +46,11 @@ fun App() {
                     }
                 }
             }
-            items(itemList){ item -> ItemCardMaker(item, selectedCard).compose() }
-            item {
-                Text("Selected card: ${selectedCard.value?.content ?: "None"}")
+
+            items(itemList){ item ->
+                key(item) {
+                    ItemCardMaker(item, selectedCard, onDeleteItem).compose()
+                }
             }
         }
     }

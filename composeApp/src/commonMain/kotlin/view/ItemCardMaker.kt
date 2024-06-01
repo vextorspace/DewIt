@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -16,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import model.Item
 
-class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>) {
+class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val onDelete: (Item) -> Unit) {
 
     @Composable
     fun compose() {
@@ -38,6 +39,9 @@ class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>) {
                             item.content = it
                         }
                     )
+                    Button(onClick = { onDelete(item) }) {
+                        Text("Delete")
+                    }
                 } else {
                     Text(contentState.value)
                 }

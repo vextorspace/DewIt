@@ -10,10 +10,10 @@ androidx-espresso-core = "3.5.1"
 androidx-material = "1.11.0"
 androidx-test-junit = "1.1.5"
 androidx-test-runner = "1.5.2"
-compose = "1.6.2"
-compose-plugin = "1.6.0"
+compose = "1.6.7"
+compose-plugin = "1.6.10"
 junit = "4.13.2"
-kotlin = "1.9.22"
+kotlin = "2.0.0"
 kotest = "5.8.1"
 mockk = "1.13.10"
 robolectric = "4.12.1"
@@ -45,5 +45,6 @@ androidx-ui-desktop = { group = "androidx.compose.ui", name = "ui-desktop", vers
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }

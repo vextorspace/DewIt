@@ -1,3 +1,4 @@
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +19,6 @@ import view.ItemCardMaker
 @Preview
 fun App() {
     val itemList = remember {mutableStateListOf(Item("Card 1"), Item("Card 2"), Item("Card 3"))}
-    val textState = remember { mutableStateOf("")}
     val selectedCard = remember { mutableStateOf<Item?>(null)}
 
     val onDeleteItem: (Item) -> Unit = {
@@ -30,26 +30,26 @@ fun App() {
     }
 
     MaterialTheme {
-        LazyColumn(
-            Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            item {
-                Row {
-                    TextField(
-                        value = textState.value,
-                        onValueChange = { textState.value = it },
-                        label = { Text("Enter text") }
-                    )
-                    Button(onClick = { itemList += Item(textState.value) }) {
+        Column {
+            Text("Inbox", style = MaterialTheme.typography.h5)
+            LazyColumn(
+                Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item {
+                    Button(onClick = { itemList += Item("New") }) {
                         Text("New Card")
                     }
                 }
-            }
 
-            items(itemList){ item ->
-                key(item) {
-                    ItemCardMaker(item, selectedCard, onDeleteItem).compose()
+                items(itemList) { item ->
+                    key(item) {
+                        ItemCardMaker(
+                            item,
+                            selectedCard,
+                            onDeleteItem
+                        ).compose()
+                    }
                 }
             }
         }

@@ -1,15 +1,15 @@
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import model.Item
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import view.ItemCardMaker
@@ -30,26 +30,26 @@ fun App() {
     }
 
     MaterialTheme {
-        Column {
-            Text("Inbox", style = MaterialTheme.typography.h5)
-            LazyColumn(
-                Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                item {
-                    Button(onClick = { itemList += Item("New") }) {
-                        Text("New Card")
+        Card(Modifier.width(200.dp)) {
+            Column {
+                Text("Inbox", style = MaterialTheme.typography.h4)
+
+                LazyColumn(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    items(itemList) { item ->
+                        key(item) {
+                            ItemCardMaker(
+                                item,
+                                selectedCard,
+                                onDeleteItem
+                            ).compose()
+                        }
                     }
                 }
 
-                items(itemList) { item ->
-                    key(item) {
-                        ItemCardMaker(
-                            item,
-                            selectedCard,
-                            onDeleteItem
-                        ).compose()
-                    }
+                Button(onClick = { itemList += Item("New") }) {
+                    Text("New Card", style = MaterialTheme.typography.body2)
                 }
             }
         }

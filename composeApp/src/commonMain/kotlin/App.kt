@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import model.Item
+import model.ItemList
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import view.ItemCardMaker
 
@@ -18,40 +19,6 @@ import view.ItemCardMaker
 @Composable
 @Preview
 fun App() {
-    val itemList = remember {mutableStateListOf(Item("Card 1"), Item("Card 2"), Item("Card 3"))}
-    val selectedCard = remember { mutableStateOf<Item?>(null)}
-
-    val onDeleteItem: (Item) -> Unit = {
-        val index = itemList.indexOf(it)
-
-        if(index != -1) {
-            itemList.removeAt(index)
-        }
-    }
-
-    MaterialTheme {
-        Card(Modifier.width(200.dp)) {
-            Column {
-                Text("Inbox", style = MaterialTheme.typography.h4)
-
-                LazyColumn(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    items(itemList) { item ->
-                        key(item) {
-                            ItemCardMaker(
-                                item,
-                                selectedCard,
-                                onDeleteItem
-                            ).compose()
-                        }
-                    }
-                }
-
-                Button(onClick = { itemList += Item("New") }) {
-                    Text("New Card", style = MaterialTheme.typography.body2)
-                }
-            }
-        }
-    }
+    val itemList = ItemList(listOf(Item("Card 1"), Item("Card 2"), Item("Card 3")), "Inbox")
+    itemList.compose()
 }

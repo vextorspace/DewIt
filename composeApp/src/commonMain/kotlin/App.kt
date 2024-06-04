@@ -1,11 +1,9 @@
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import model.Item
 import model.ItemList
-import view.ItemListCardMaker
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import view.HorizontalDisplay
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -13,12 +11,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     val itemLists = createFakeItemLists()
 
-    val pagerState = rememberPagerState{itemLists.size}
-
-    HorizontalPager(state=pagerState) { page ->
-        itemLists.forEach { ItemListCardMaker(it).compose() }
-    }
+    HorizontalDisplay().Compose(itemLists)
 }
+
 
 private fun createFakeItemLists(): List<ItemList> {
     val itemLists = listOf(

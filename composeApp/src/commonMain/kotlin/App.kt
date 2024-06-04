@@ -11,18 +11,45 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
-    val itemLists = listOf(
-        ItemList(listOf(Item("Card 01"), Item("Card 2"), Item("Card 3")), "Inbox"),
-        ItemList(listOf(Item("Card 11"), Item("Card 2"), Item("Card 3")), "Inbox"),
-        ItemList(listOf(Item("Card 21"), Item("Card 2"), Item("Card 3")), "Inbox"),
-        ItemList(listOf(Item("Card 31"), Item("Card 2"), Item("Card 3")), "Inbox"),
-        ItemList(listOf(Item("Card 41"), Item("Card 2"), Item("Card 3")), "Inbox"),
-        ItemList(listOf(Item("Card 51"), Item("Card 2"), Item("Card 3")), "Inbox"),
-        ItemList(listOf(Item("Card 61"), Item("Card 2"), Item("Card 3")), "Inbox"),
-    )
-    val pagerState = rememberPagerState{5}
+    val itemLists = createFakeItemLists()
+
+    val pagerState = rememberPagerState{itemLists.size}
 
     HorizontalPager(state=pagerState) { page ->
         itemLists.forEach { ItemListCardMaker(it).compose() }
     }
+}
+
+private fun createFakeItemLists(): List<ItemList> {
+    val itemLists = listOf(
+        ItemList(
+            listOf(Item("Card 01"), Item("Card 2"), Item("Card 3")),
+            "Inbox"
+        ),
+        ItemList(
+            listOf(Item("Card 11"), Item("Card 2"), Item("Card 3")),
+            "Inbox"
+        ),
+        ItemList(
+            listOf(Item("Card 21"), Item("Card 2"), Item("Card 3")),
+            "Inbox"
+        ),
+        ItemList(
+            listOf(Item("Card 31"), Item("Card 2"), Item("Card 3")),
+            "Inbox"
+        ),
+        ItemList(
+            listOf(Item("Card 41"), Item("Card 2"), Item("Card 3")),
+            "Inbox"
+        ),
+        ItemList(
+            listOf(Item("Card 51"), Item("Card 2"), Item("Card 3")),
+            "Inbox"
+        ),
+        ItemList(
+            listOf(Item("Card 61"), Item("Card 2"), Item("Card 3")),
+            "Inbox"
+        ),
+    )
+    return itemLists
 }

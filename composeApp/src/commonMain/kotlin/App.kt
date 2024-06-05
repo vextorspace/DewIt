@@ -36,7 +36,18 @@ private fun createFakeItemLists(): List<ItemList> {
                 Item("Card 15"),
                 Item("Card 16"),
                 Item("Card 17"),
-                Item("Card 18")
+                Item("Card 18"),
+                Item("Card 19"),
+                Item("Card 20"),
+                Item("Card 21"),
+                Item("Card 22"),
+                Item("Card 23"),
+                Item("Card 24"),
+                Item("Card 25"),
+                Item("Card 26"),
+                Item("Card 27"),
+                Item("Card 28"),
+                Item("Card 29")
             ),
             "Inbox"
         ),

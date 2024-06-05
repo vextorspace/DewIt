@@ -3,14 +3,13 @@ package view
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import model.Item
@@ -20,15 +19,6 @@ class ItemListCardMaker(val items: ItemList) {
     @Composable
     fun compose() {
         val itemList = remember {mutableStateListOf<Item>(*items.items.toTypedArray())}
-        val selectedCard = remember { mutableStateOf<Item?>(null)}
-
-        val onDeleteItem: (Item) -> Unit = {
-            val index = itemList.indexOf(it)
-
-            if(index != -1) {
-                itemList.removeAt(index)
-            }
-        }
 
         MaterialTheme {
             Card(Modifier.width(200.dp).fillMaxHeight()) {
@@ -37,23 +27,9 @@ class ItemListCardMaker(val items: ItemList) {
                         items.label,
                         style = MaterialTheme.typography.h4
                     )
-
-                    LazyColumn(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.weight(1f)
-
-                    ) {
-                        items(itemList) { item ->
-                            key(item) {
-                                ItemCardMaker(
-                                    item,
-                                    selectedCard,
-                                    onDeleteItem
-                                ).compose()
-                            }
-                        }
+                    Column(modifier = Modifier.weight(1f)) {
+                        VerticalDisplay().Compose(itemList)
                     }
-
                     Button(
                         onClick = { itemList += Item("New") }
                     ) {

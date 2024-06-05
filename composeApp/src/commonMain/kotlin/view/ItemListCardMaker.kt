@@ -18,7 +18,9 @@ import model.ItemList
 class ItemListCardMaker(val items: ItemList) {
     @Composable
     fun compose() {
-        val itemList = remember {mutableStateListOf<Item>(*items.items.toTypedArray())}
+        val itemList = remember {
+            mutableStateListOf(*items.items.toTypedArray())
+        }
 
         MaterialTheme {
             Card(Modifier.width(200.dp).fillMaxHeight()) {
@@ -27,13 +29,18 @@ class ItemListCardMaker(val items: ItemList) {
                         items.label,
                         style = MaterialTheme.typography.h4
                     )
+
                     Column(modifier = Modifier.weight(1f)) {
                         VerticalDisplay().Compose(itemList)
                     }
+
                     Button(
                         onClick = { itemList += Item("New") }
                     ) {
-                        Text("New Card", style = MaterialTheme.typography.body2)
+                        Text(
+                            "New Card",
+                            style = MaterialTheme.typography.body2
+                        )
                     }
                 }
             }

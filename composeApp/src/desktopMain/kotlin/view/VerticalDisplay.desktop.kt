@@ -33,7 +33,8 @@ actual class VerticalDisplay actual constructor() {
         Row(modifier = Modifier.fillMaxWidth()) {
             LazyColumn(
                 state = scrollState,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
             ) {
                 items(itemList) { item ->
                     key(item) {

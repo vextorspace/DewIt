@@ -18,7 +18,26 @@ fun App() {
 private fun createFakeItemLists(): List<ItemList> {
     val itemLists = listOf(
         ItemList(
-            listOf(Item("Card 01"), Item("Card 2"), Item("Card 3")),
+            listOf(
+                Item("Card 01"),
+                Item("Card 2"),
+                Item("Card 3"),
+                Item("Card 4"),
+                Item("Card 5"),
+                Item("Card 6"),
+                Item("Card 7"),
+                Item("Card 8"),
+                Item("Card 9"),
+                Item("Card 10"),
+                Item("Card 11"),
+                Item("Card 12"),
+                Item("Card 13"),
+                Item("Card 14"),
+                Item("Card 15"),
+                Item("Card 16"),
+                Item("Card 17"),
+                Item("Card 18")
+            ),
             "Inbox"
         ),
         ItemList(

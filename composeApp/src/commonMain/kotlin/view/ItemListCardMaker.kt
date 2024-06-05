@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import model.Item
@@ -25,25 +26,35 @@ class ItemListCardMaker(val items: ItemList) {
         MaterialTheme {
             Card(Modifier.width(200.dp).fillMaxHeight()) {
                 Column {
-                    Text(
-                        items.label,
-                        style = MaterialTheme.typography.h4
-                    )
+                    MakeTitleHeader()
 
                     Column(modifier = Modifier.weight(1f)) {
                         VerticalDisplay().Compose(itemList)
                     }
 
-                    Button(
-                        onClick = { itemList += Item("New") }
-                    ) {
-                        Text(
-                            "New Card",
-                            style = MaterialTheme.typography.body2
-                        )
-                    }
+                    MakeNewButtonFooter(itemList)
                 }
             }
         }
+    }
+
+    @Composable
+    private fun MakeNewButtonFooter(itemList: SnapshotStateList<Item>) {
+        Button(
+            onClick = { itemList += Item("New") }
+        ) {
+            Text(
+                "New Card",
+                style = MaterialTheme.typography.body2
+            )
+        }
+    }
+
+    @Composable
+    private fun MakeTitleHeader() {
+        Text(
+            items.label,
+            style = MaterialTheme.typography.h4
+        )
     }
 }

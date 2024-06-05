@@ -1,6 +1,7 @@
 package view
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,12 +31,17 @@ class ItemListCardMaker(val items: ItemList) {
         }
 
         MaterialTheme {
-            Card(Modifier.width(200.dp)) {
+            Card(Modifier.width(200.dp).fillMaxHeight()) {
                 Column {
-                    Text(items.label, style = MaterialTheme.typography.h4)
+                    Text(
+                        items.label,
+                        style = MaterialTheme.typography.h4
+                    )
 
                     LazyColumn(
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.weight(1f)
+
                     ) {
                         items(itemList) { item ->
                             key(item) {
@@ -48,7 +54,9 @@ class ItemListCardMaker(val items: ItemList) {
                         }
                     }
 
-                    Button(onClick = { itemList += Item("New") }) {
+                    Button(
+                        onClick = { itemList += Item("New") }
+                    ) {
                         Text("New Card", style = MaterialTheme.typography.body2)
                     }
                 }

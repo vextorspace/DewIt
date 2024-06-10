@@ -1,19 +1,53 @@
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import model.Item
 import model.ItemList
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import view.HorizontalDisplay
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Preview
 fun App() {
-    val itemLists = createFakeItemLists()
+    val itemLists = remember {
+        mutableStateOf(createFakeItemLists().toMutableList())
+    }
+    val statusText = remember {  mutableStateOf("Status: ${itemLists.value.size}")  }
 
-    HorizontalDisplay().Compose(itemLists)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("DewIt Now")},
+                actions = {
+                    IconButton(
+                        onClick = {
+                            itemLists.value.add(ItemList(emptyList(), "New List"))
+                            statusText.value = "Status: adding new list ${itemLists.value.size}"
+                        }
+                    ) {
+                        Icon(
+                            Icons.Filled.Add,
+                            contentDescription = "new"
+                        )
+                    }
+                }
+            )
+        },
+        bottomBar = {
+            BottomAppBar() {
+                Text(statusText.value, Modifier.padding(16.dp))
+            }
+        }
+    ) {
+        HorizontalDisplay().Compose(itemLists)
+    }
 }
-
 
 private fun createFakeItemLists(): List<ItemList> {
     val itemLists = listOf(

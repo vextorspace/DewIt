@@ -1,3 +1,4 @@
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -44,8 +45,11 @@ fun App() {
                 Text(statusText.value, Modifier.padding(16.dp))
             }
         }
-    ) {
-        HorizontalDisplay().Compose(itemLists)
+    ) { innerPadding ->
+
+        Column(modifier = Modifier.padding(innerPadding)) {
+            HorizontalDisplay().Compose(itemLists)
+        }
     }
 }
 

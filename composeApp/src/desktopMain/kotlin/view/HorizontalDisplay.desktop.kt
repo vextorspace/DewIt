@@ -22,7 +22,7 @@ actual class HorizontalDisplay actual constructor() {
         Column(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
             LazyRow(state = scrollState, modifier = Modifier.weight(1f)) {
                 items(itemLists.value) { itemList ->
-                    key(itemList) {
+                    key(itemList.id) {
                         ItemListCardMaker(itemList).compose()
                     }
                 }

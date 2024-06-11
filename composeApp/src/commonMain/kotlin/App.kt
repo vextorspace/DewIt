@@ -28,7 +28,7 @@ fun App() {
                 actions = {
                     IconButton(
                         onClick = {
-                            itemLists.value.add(ItemList(emptyList(), "New List"))
+                            itemLists.value.add(0,ItemList(listOf(Item("new")), "New List"))
                             statusText.value = "Status: adding new list ${itemLists.value.size}"
                         }
                     ) {

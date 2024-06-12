@@ -1,7 +1,8 @@
 package resources
 
-actual class ResourceLoader {
-    actual fun readTextFromFile(path: String): String? {
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual class ResourceLoader actual constructor(val resourcePath: String) {
+    actual fun readTextFromFile(): String? {
         TODO("Not yet implemented")
     }
 }

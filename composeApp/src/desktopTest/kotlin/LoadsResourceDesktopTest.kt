@@ -7,7 +7,7 @@ class LoadsResourceDesktopTest {
 
     @Test
     fun `loads a file from the resources dir`() {
-        ResourceLoader().readTextFromFile("/test.txt")
+        ResourceLoader("/test.txt").readTextFromFile()
             .shouldNotBeNull()
             .shouldBe("boo!")
     }

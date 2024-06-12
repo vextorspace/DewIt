@@ -1,5 +1,6 @@
 package resources
 
-expect class ResourceLoader {
-    fun readTextFromFile(path: String): String?
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+expect class ResourceLoader(resourcePath: String) {
+    fun readTextFromFile(): String?
 }

@@ -7,7 +7,7 @@ class LoadsResourceAndroidTest {
 
     @Test
     fun loadsAFileFromResources() {
-        ResourceLoader().readTextFromFile("/test.txt")
+        ResourceLoader("/test.txt").readTextFromFile()
             .shouldNotBeNull()
             .shouldBe("boo!")
     }

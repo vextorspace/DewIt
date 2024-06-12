@@ -1,7 +1,8 @@
+package resources
+
 import kotlin.test.Test
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.nulls.shouldNotBeNull
-import resources.Resource
 
 class LoadsResourceDesktopTest {
 

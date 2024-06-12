@@ -10,6 +10,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import model.Item
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class VerticalDisplay actual constructor() {
     @Composable
     actual fun Compose(itemList: SnapshotStateList<Item>) {
@@ -27,7 +28,7 @@ actual class VerticalDisplay actual constructor() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             items(itemList) { item ->
-                key(item) {
+                key(item.id) {
                     ItemCardMaker(
                         item,
                         selectedCard,

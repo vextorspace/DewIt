@@ -6,7 +6,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.fail
 
-class SavesResourceDesktopTest {
+class SavesResourceTest {
     val resource = Resource("/resources/writes_test.txt")
 
     @BeforeTest
@@ -19,7 +19,7 @@ class SavesResourceDesktopTest {
     @Test
     fun `savesResource should return true`() {
         if(resource.exists()) {
-            fail("Resource ${resource.resourcePath} should not exist")
+            fail("Resource $resource should not exist")
         }
 
         val textToWrite = "boo!"

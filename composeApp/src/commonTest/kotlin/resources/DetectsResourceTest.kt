@@ -1,12 +1,12 @@
 package resources
 
 import io.kotest.matchers.booleans.shouldBeTrue
-import org.junit.Test
+import kotlin.test.Test
 
-class DetectsResourceAndroidTest {
+class DetectsResourceTest {
 
     @Test
-    fun detectsResource() {
+    fun `detectsResource should return true`() {
         Resource("/test.txt").exists()
             .shouldBeTrue()
     }

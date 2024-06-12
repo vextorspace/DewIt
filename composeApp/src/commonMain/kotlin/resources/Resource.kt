@@ -5,4 +5,8 @@ expect class Resource(resourcePath: String) {
     fun readTextFromFile(): String?
 
     fun exists(): Boolean
+
+    fun delete()
+
+    fun writeTextToFile(textToWrite: String)
 }

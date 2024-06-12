@@ -10,4 +10,12 @@ actual class Resource actual constructor(resourcePath: String) {
     actual fun exists(): Boolean {
         TODO("Not yet implemented")
     }
+
+    actual fun delete() {
+        TODO("Not yet implemented")
+    }
+
+    actual fun writeTextToFile(textToWrite: String) {
+        TODO("Not yet implemented")
+    }
 }

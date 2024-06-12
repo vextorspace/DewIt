@@ -5,7 +5,7 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-class DeletesResourceDesktopTest {
+class DeletesResourceTest {
     private val resource = Resource("/resources/writes_test.txt")
 
     @BeforeTest

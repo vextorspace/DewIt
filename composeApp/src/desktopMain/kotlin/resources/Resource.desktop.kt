@@ -15,13 +15,13 @@ actual class Resource actual constructor(val resourcePath: String) {
         return getResourceUrl() != null
     }
 
-    fun delete() {
+    actual fun delete() {
         getResourceUrl()?.toURI()?.let {
             File(it).delete()
         }
     }
 
-    fun writeTextToFile(textToWrite: String) {
+    actual fun writeTextToFile(textToWrite: String) {
         val baseDir = this.javaClass.getResource("/")
         val file = File(baseDir.toURI().path + resourcePath)
 

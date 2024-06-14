@@ -28,9 +28,12 @@ fun App() {
                 actions = {
                     IconButton(
                         onClick = {
-                            itemLists.value.add(0,ItemList(listOf(Item("new")), "New List"))
+                            val newList = ItemList(listOf(Item("New Item")), "New List")
+                            val updatedLists = itemLists.value.toMutableList()
+                            updatedLists.add(newList)
+                            itemLists.value = updatedLists
                             statusText.value = "Status: adding new list ${itemLists.value.size}"
-                        }
+                         }
                     ) {
                         Icon(
                             Icons.Filled.Add,

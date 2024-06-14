@@ -8,9 +8,10 @@
 - [x] change to lazyColumn
 - [x] delete a card
 - [x] edit a card
-- [ ] add a list
+- [x] add a list
 - [ ] delete a list
 - [ ] move a list
+- [ ] display sub-cards
 - [ ] load cards from a resource
 - [ ] save cards to the resource
 - [ ] update database with saved changes

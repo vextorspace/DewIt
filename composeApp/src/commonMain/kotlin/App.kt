@@ -1,8 +1,6 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -12,6 +10,7 @@ import model.Item
 import model.ItemList
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import view.HorizontalDisplay
+import view.actions.OnAddList
 
 @Composable
 @Preview
@@ -25,22 +24,7 @@ fun App() {
         topBar = {
             TopAppBar(
                 title = { Text("DewIt Now")},
-                actions = {
-                    IconButton(
-                        onClick = {
-                            val newList = ItemList(listOf(Item("New Item")), "New List")
-                            val updatedLists = itemLists.value.toMutableList()
-                            updatedLists.add(newList)
-                            itemLists.value = updatedLists
-                            statusText.value = "Status: adding new list ${itemLists.value.size}"
-                         }
-                    ) {
-                        Icon(
-                            Icons.Filled.Add,
-                            contentDescription = "new"
-                        )
-                    }
-                }
+                actions = { OnAddList(statusText, itemLists).Compose() }
             )
         },
         bottomBar = {

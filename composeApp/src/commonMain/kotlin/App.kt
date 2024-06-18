@@ -89,7 +89,7 @@ private fun createFakeItemLists(): List<ItemList> {
             "Inbox"
         ),
         ItemList(
-            listOf(Item("Card 11"), Item("Card 2"), Item("Card 3")),
+            listOf(Item("Card 11", mutableListOf(Item("Sub 1"), Item("Sub 2", mutableListOf(Item("Sub Sub"))))), Item("Card 2"), Item("Card 3")),
             "Inbox"
         ),
         ItemList(

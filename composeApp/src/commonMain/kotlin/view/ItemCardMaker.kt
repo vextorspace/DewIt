@@ -45,6 +45,13 @@ class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val o
                 } else {
                     Text(contentState.value)
                 }
+                if(item.subItems.isNotEmpty()) {
+                    Column {
+                        item.subItems.forEach {
+                            ItemCardMaker(it, selectedCard, onDelete).compose()
+                        }
+                    }
+                }
             }
         }
     }

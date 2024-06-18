@@ -7,7 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import model.ItemList
 
-actual class HorizontalDisplay actual constructor() {
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual class HorizontalDisplay actual constructor(val onDelete: (ItemList) -> Unit) {
 
     @Composable
     @OptIn(ExperimentalFoundationApi::class)
@@ -15,7 +16,7 @@ actual class HorizontalDisplay actual constructor() {
         val pagerState = rememberPagerState { itemLists.value.size }
 
         HorizontalPager(state = pagerState) { page ->
-            ItemListCardMaker(itemLists.value[page]).compose()
+            ItemListCardMaker(itemLists.value[page], onDelete).compose()
         }
     }
 }

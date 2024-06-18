@@ -2,6 +2,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -35,10 +36,21 @@ fun App() {
     ) { innerPadding ->
 
         Column(modifier = Modifier.padding(innerPadding)) {
-            HorizontalDisplay().Compose(itemLists)
+            HorizontalDisplay(onDelete = { deleteItemFromList(itemLists, it) })
+                .Compose(itemLists)
         }
     }
 }
+
+private fun deleteItemFromList(
+    itemLists: MutableState<MutableList<ItemList>>,
+    it: ItemList
+) {
+    val newList = itemLists.value.toMutableList()
+    newList.remove(it)
+    itemLists.value 
+}
+
 
 private fun createFakeItemLists(): List<ItemList> {
     val itemLists = listOf(

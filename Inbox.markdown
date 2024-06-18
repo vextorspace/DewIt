@@ -10,6 +10,7 @@
 - [x] edit a card
 - [x] add a list
 - [ ] delete a list
+- [ ] rename a list
 - [ ] move a list
 - [ ] display sub-cards
 - [ ] load cards from a resource

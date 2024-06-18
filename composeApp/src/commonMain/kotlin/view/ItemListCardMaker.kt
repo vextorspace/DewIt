@@ -1,6 +1,7 @@
 package view
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
@@ -15,8 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import model.Item
 import model.ItemList
+import view.actions.OnDeleteList
 
-class ItemListCardMaker(val items: ItemList) {
+class ItemListCardMaker(val items: ItemList, val onDelete: (ItemList) -> Unit) {
     @Composable
     fun compose() {
         val itemList = remember {
@@ -52,9 +54,12 @@ class ItemListCardMaker(val items: ItemList) {
 
     @Composable
     private fun MakeTitleHeader() {
-        Text(
-            items.label,
-            style = MaterialTheme.typography.h4
-        )
+        Row {
+            Text(
+                items.label,
+                style = MaterialTheme.typography.h4
+            )
+            OnDeleteList(items, onDelete).Compose()
+        }
     }
 }

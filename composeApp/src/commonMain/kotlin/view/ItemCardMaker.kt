@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import model.Item
 import view.actions.OnDeleteCard
+import view.actions.OnEditCard
 
 class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val onDelete: (Item) -> Unit) {
 
@@ -25,7 +26,6 @@ class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val o
     fun compose() {
         val contentState = remember { mutableStateOf(item.content) }
         val subItems = remember { mutableStateOf(item.subItems) }
-        val editState = remember { mutableStateOf(false) }
 
         Card(
             modifier = Modifier
@@ -39,19 +39,25 @@ class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val o
             Column {
                 Row {
                     if(item == selectedCard.value) {
-                        TextField(
-                            value = contentState.value,
-                            onValueChange = {
-                                contentState.value = it
-                                item.content = it
+                        Column(
+                            modifier = Modifier.padding(5.dp)
+                        ) {
+
+                            TextField(
+                                value = contentState.value,
+                                onValueChange = {
+                                    contentState.value = it
+                                    item.content = it
+                                }
+                            )
+                            Button(onClick = { selectedCard.value = null }) {
+                                Text("Done")
                             }
-                        )
-                        Button(onClick = { onDelete(item) }) {
-                            Text("Delete")
                         }
                     } else {
                         Text(contentState.value)
                     }
+                    OnEditCard(selectedCard, item).Compose()
                     OnDeleteCard(item, onDelete).Compose()
                 }
                 if(subItems.value.isNotEmpty()) {

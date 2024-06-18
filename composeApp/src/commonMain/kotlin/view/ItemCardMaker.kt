@@ -25,11 +25,14 @@ class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val o
     fun compose() {
         val contentState = remember { mutableStateOf(item.content) }
         val subItems = remember { mutableStateOf(item.subItems) }
+        val editState = remember { mutableStateOf(false) }
 
         Card(
             modifier = Modifier
                 .padding(5.dp)
-                .clickable { selectedCard.value = item }
+                .clickable {
+                    selectedCard.value = item
+                }
                 .background(if(selectedCard.value == item) Color.DarkGray else Color.White),
             elevation = 5.dp
         ) {

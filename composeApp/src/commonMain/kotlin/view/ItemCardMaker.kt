@@ -3,6 +3,7 @@ package view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Card
@@ -16,12 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import model.Item
+import view.actions.OnDeleteCard
 
 class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val onDelete: (Item) -> Unit) {
 
     @Composable
     fun compose() {
         val contentState = remember { mutableStateOf(item.content) }
+        val subItems = remember { mutableStateOf(item.subItems) }
 
         Card(
             modifier = Modifier
@@ -31,28 +34,45 @@ class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val o
             elevation = 5.dp
         ) {
             Column {
-                if(item == selectedCard.value) {
-                    TextField(
-                        value = contentState.value,
-                        onValueChange = {
-                            contentState.value = it
-                            item.content = it
+                Row {
+                    if(item == selectedCard.value) {
+                        TextField(
+                            value = contentState.value,
+                            onValueChange = {
+                                contentState.value = it
+                                item.content = it
+                            }
+                        )
+                        Button(onClick = { onDelete(item) }) {
+                            Text("Delete")
                         }
-                    )
-                    Button(onClick = { onDelete(item) }) {
-                        Text("Delete")
+                    } else {
+                        Text(contentState.value)
                     }
-                } else {
-                    Text(contentState.value)
+                    OnDeleteCard(item, onDelete).Compose()
                 }
-                if(item.subItems.isNotEmpty()) {
+                if(subItems.value.isNotEmpty()) {
                     Column {
-                        item.subItems.forEach {
-                            ItemCardMaker(it, selectedCard, onDelete).compose()
+                        subItems.value.forEach {
+                            ItemCardMaker(it, selectedCard) { itemToDelete: Item ->
+                                deleteItemFromCard(
+                                    subItems,
+                                    itemToDelete
+                                )
+                            }.compose()
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun deleteItemFromCard(
+        parentItem: MutableState<MutableList<Item>>,
+        it: Item
+    ) {
+        val newList = parentItem.value.toMutableList()
+        newList.remove(it)
+        parentItem.value = newList
     }
 }

@@ -7,19 +7,17 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import model.Item
-import model.ItemList
 
-class OnAddList(val statusText: MutableState<String>, val itemLists: MutableState<MutableList<ItemList>>) {
+class OnAddCard(val statusText: MutableState<String>, val items: MutableState<MutableList<Item>>) {
 
     @Composable
     fun Compose() {
         IconButton(
             onClick = {
-                val newList = ItemList(listOf(Item("New Item")), "New List")
-                val updatedLists = itemLists.value.toMutableList()
-                updatedLists.add(newList)
-                itemLists.value = updatedLists
-                statusText.value = "Status: adding new list ${itemLists.value.size}"
+                val updateList = items.value.toMutableList()
+                updateList.add(Item("New List"))
+                items.value = updateList
+                statusText.value = "Status: adding new list ${items.value.size}"
             }
         ) {
             Icon(
@@ -27,6 +25,5 @@ class OnAddList(val statusText: MutableState<String>, val itemLists: MutableStat
                 contentDescription = "new"
             )
         }
-
     }
 }

@@ -2,11 +2,11 @@ package view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import model.ItemList
+import model.Item
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class HorizontalDisplay actual constructor(val onDelete: (ItemList) -> Unit){
+actual class HorizontalDisplay actual constructor(val statusText: MutableState<String>, val onDelete: (Item) -> Unit){
     @Composable
-    actual fun Compose(itemLists: MutableState<MutableList<ItemList>>) {
+    actual fun Compose(itemList: MutableState<MutableList<Item>>) {
     }
 }

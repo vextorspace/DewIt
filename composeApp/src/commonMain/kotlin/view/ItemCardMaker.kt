@@ -5,22 +5,27 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import model.Item
+import view.actions.OnAddCard
 import view.actions.OnDeleteCard
 import view.actions.OnEditCard
 
-class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val onDelete: (Item) -> Unit) {
+class ItemCardMaker(
+    val item: Item,
+    val selectedCard: MutableState<Item?>,
+    val statusText: MutableState<String>,
+    val onDelete: (Item) -> Unit
+) {
 
     @Composable
     fun compose() {
@@ -33,7 +38,7 @@ class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val o
                 .clickable {
                     selectedCard.value = item
                 }
-                .background(if(selectedCard.value == item) Color.DarkGray else Color.White),
+                .background(chooseBackgroundColor()),
             elevation = 5.dp
         ) {
             Column {
@@ -50,7 +55,10 @@ class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val o
                                     item.content = it
                                 }
                             )
-                            Button(onClick = { selectedCard.value = null }) {
+                            Button(
+                                onClick = {
+                                selectedCard.value = null
+                            }) {
                                 Text("Done")
                             }
                         }
@@ -58,21 +66,29 @@ class ItemCardMaker(val item: Item, val selectedCard: MutableState<Item?>, val o
                         Text(contentState.value)
                     }
                     OnEditCard(selectedCard, item).Compose()
+                    OnAddCard(statusText, subItems).Compose()
                     OnDeleteCard(item, onDelete).Compose()
                 }
-                if(subItems.value.isNotEmpty()) {
-                    Column {
-                        subItems.value.forEach {
-                            ItemCardMaker(it, selectedCard) { itemToDelete: Item ->
-                                deleteItemFromCard(
-                                    subItems,
-                                    itemToDelete
-                                )
-                            }.compose()
+                Column() {
+                    subItems.value.forEach { subItem ->
+                        key(subItem.id) {
+                            ItemCardMaker(
+                                subItem,
+                                selectedCard,
+                                statusText
+                            ) { subItem -> deleteItemFromCard(subItems, subItem) }.compose()
                         }
                     }
                 }
             }
+        }
+    }
+
+    private fun chooseBackgroundColor(): Color {
+        return if (selectedCard.value == item) {
+            Color.DarkGray
+        } else {
+            Color.White
         }
     }
 

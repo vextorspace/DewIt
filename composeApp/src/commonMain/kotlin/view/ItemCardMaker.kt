@@ -22,7 +22,7 @@ class ItemCardMaker(
     val item: Item,
     val selectedCard: MutableState<Item?>,
     val statusText: MutableState<String>,
-    val onDelete: (Item) -> Unit
+    val parentItems: MutableState<MutableList<Item>>
 ) {
 
     @Composable
@@ -65,19 +65,20 @@ class ItemCardMaker(
                     }
                     OnEditCard(selectedCard, item).Compose()
                     OnAddCard(statusText, subItems).Compose()
-                    OnDeleteCard(item, onDelete).Compose()
+                    OnDeleteCard(item, parentItems).Compose()
                 }
 
                 if(topLevel) {
-                    VerticalDisplay(selectedCard, statusText, onDelete).Compose(subItems)
+                    VerticalDisplay(selectedCard, statusText).Compose(subItems)
                 } else {
                     subItems.value.forEach { subItem ->
                         key(subItem.id) {
                             ItemCardMaker(
                                 subItem,
                                 selectedCard,
-                                statusText
-                            ) { subItem -> deleteItemFromCard(subItems, subItem) }.Compose()
+                                statusText,
+                                subItems
+                            ).Compose()
                         }
                     }
                 }
@@ -91,14 +92,5 @@ class ItemCardMaker(
         } else {
             Color.White
         }
-    }
-
-    private fun deleteItemFromCard(
-        parentItem: MutableState<MutableList<Item>>,
-        it: Item
-    ) {
-        val newList = parentItem.value.toMutableList()
-        newList.remove(it)
-        parentItem.value = newList
     }
 }

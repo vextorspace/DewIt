@@ -5,7 +5,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -41,23 +40,11 @@ fun App() {
 
         Column(modifier = Modifier.padding(innerPadding)) {
             HorizontalDisplay(
-                statusText = statusText,
-                onDelete = { deleteItemFromList(itemList, it) }
-            )
-                .Compose(itemList)
+                statusText = statusText
+            ).Compose(itemList)
         }
     }
 }
-
-private fun deleteItemFromList(
-    itemLists: MutableState<MutableList<Item>>,
-    it: Item
-) {
-    val newList = itemLists.value.toMutableList()
-    newList.remove(it)
-    itemLists.value  = newList
-}
-
 
 private fun createGtdList(): List<Item> {
     val itemList = listOf(

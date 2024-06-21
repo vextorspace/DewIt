@@ -5,7 +5,7 @@ import androidx.compose.runtime.MutableState
 import model.Item
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-expect class HorizontalDisplay(statusText: MutableState<String>, onDelete: (Item) -> Unit) {
+expect class HorizontalDisplay(statusText: MutableState<String>) {
     @Composable
     fun Compose(itemList: MutableState<MutableList<Item>>)
 }

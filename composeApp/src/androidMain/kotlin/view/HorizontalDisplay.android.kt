@@ -10,7 +10,7 @@ import androidx.compose.runtime.remember
 import model.Item
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class HorizontalDisplay actual constructor(val statusText: MutableState<String>, val onDelete: (Item) -> Unit) {
+actual class HorizontalDisplay actual constructor(val statusText: MutableState<String>) {
 
     @Composable
     @OptIn(ExperimentalFoundationApi::class)
@@ -19,7 +19,12 @@ actual class HorizontalDisplay actual constructor(val statusText: MutableState<S
         val selectedCard = remember { mutableStateOf<Item?>(null) }
 
         HorizontalPager(state = pagerState) { page ->
-            ItemCardMaker(itemList.value[page], selectedCard, statusText, onDelete).Compose(topLevel = true)
+            ItemCardMaker(
+                itemList.value[page],
+                selectedCard,
+                statusText,
+                itemList
+            ).Compose(topLevel = true)
         }
     }
 }

@@ -13,7 +13,10 @@ import androidx.compose.ui.Modifier
 import model.Item
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class VerticalDisplay actual constructor(val selectedCard: MutableState<Item?>, val statusText: MutableState<String>, val onDelete: (Item) -> Unit){
+actual class VerticalDisplay actual constructor(
+    val selectedCard: MutableState<Item?>,
+    val statusText: MutableState<String>
+){
     @Composable
     actual fun Compose(itemList: MutableState<MutableList<Item>>) {
         val scrollState = rememberLazyListState()
@@ -29,7 +32,7 @@ actual class VerticalDisplay actual constructor(val selectedCard: MutableState<I
                             item,
                             selectedCard,
                             statusText,
-                            onDelete
+                            itemList
                         ).Compose(topLevel = false)
                     }
                 }

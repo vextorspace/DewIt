@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import model.Item
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class HorizontalDisplay actual constructor(val statusText: MutableState<String>, val onDelete: (Item) -> Unit) {
+actual class HorizontalDisplay actual constructor(val statusText: MutableState<String>) {
     @Composable
     actual fun Compose(itemList: MutableState<MutableList<Item>>) {
         val scrollState = rememberLazyListState()
@@ -23,7 +23,12 @@ actual class HorizontalDisplay actual constructor(val statusText: MutableState<S
             LazyRow(state = scrollState, modifier = Modifier.weight(1f)) {
                 items(itemList.value) { item ->
                     key(item.id) {
-                        ItemCardMaker(item, selectedItem, statusText, onDelete).Compose(topLevel = true)
+                        ItemCardMaker(
+                            item,
+                            selectedItem,
+                            statusText,
+                            itemList
+                        ).Compose(topLevel = true)
                     }
                 }
             }

@@ -21,7 +21,9 @@ fun App() {
     val itemList = remember {
         mutableStateOf(createGtdList().toMutableList())
     }
-    val statusText = remember {  mutableStateOf("Status: ${itemList.value.size}")  }
+    val statusText = remember {
+        mutableStateOf("Status: ${itemList.value.size}")
+    }
 
     Scaffold(
         topBar = {
@@ -68,7 +70,10 @@ private fun createGtdList(): List<Item> {
         ),
         Item(
             "Todo",
-            listOf(Item("Read GTD Book"), Item("Do a Dump"))
+            listOf(
+                Item("Read GTD Book"),
+                Item("Do a Dump")
+            )
         ),
         Item(
             "Projects"

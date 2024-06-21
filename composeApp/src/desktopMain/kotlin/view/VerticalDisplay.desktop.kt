@@ -21,8 +21,7 @@ actual class VerticalDisplay actual constructor(val selectedCard: MutableState<I
         Row(modifier = Modifier.fillMaxWidth()) {
             LazyColumn(
                 state = scrollState,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.weight(1f)
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 items(itemList.value) { item ->
                     key(item.id) {

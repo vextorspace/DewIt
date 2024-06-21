@@ -71,15 +71,15 @@ class ItemCardMaker(
                 if(topLevel) {
                     VerticalDisplay(selectedCard, statusText, onDelete).Compose(subItems)
                 } else {
-                        subItems.value.forEach { subItem ->
-                            key(subItem.id) {
-                                ItemCardMaker(
-                                    subItem,
-                                    selectedCard,
-                                    statusText
-                                ) { subItem -> deleteItemFromCard(subItems, subItem) }.Compose()
-                            }
+                    subItems.value.forEach { subItem ->
+                        key(subItem.id) {
+                            ItemCardMaker(
+                                subItem,
+                                selectedCard,
+                                statusText
+                            ) { subItem -> deleteItemFromCard(subItems, subItem) }.Compose()
                         }
+                    }
                 }
             }
         }

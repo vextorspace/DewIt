@@ -19,7 +19,7 @@ actual class HorizontalDisplay actual constructor(val statusText: MutableState<S
         val selectedCard = remember { mutableStateOf<Item?>(null) }
 
         HorizontalPager(state = pagerState) { page ->
-            ItemCardMaker(itemList.value[page], selectedCard, statusText, onDelete).compose()
+            ItemCardMaker(itemList.value[page], selectedCard, statusText, onDelete).Compose(topLevel = true)
         }
     }
 }

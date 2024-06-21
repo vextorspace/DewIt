@@ -3,7 +3,6 @@ package view
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import model.Item
 
@@ -23,7 +22,7 @@ actual class VerticalDisplay actual constructor(val selectedCard: MutableState<I
                         selectedCard,
                         statusText,
                         onDelete
-                    ).compose()
+                    ).Compose()
                 }
             }
         }

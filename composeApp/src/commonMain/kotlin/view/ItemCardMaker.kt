@@ -5,8 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -28,7 +26,7 @@ class ItemCardMaker(
 ) {
 
     @Composable
-    fun compose() {
+    fun Compose(topLevel: Boolean = false) {
         val contentState = remember { mutableStateOf(item.content) }
         val subItems = remember { mutableStateOf(item.subItems) }
 
@@ -69,16 +67,19 @@ class ItemCardMaker(
                     OnAddCard(statusText, subItems).Compose()
                     OnDeleteCard(item, onDelete).Compose()
                 }
-                Column() {
-                    subItems.value.forEach { subItem ->
-                        key(subItem.id) {
-                            ItemCardMaker(
-                                subItem,
-                                selectedCard,
-                                statusText
-                            ) { subItem -> deleteItemFromCard(subItems, subItem) }.compose()
+
+                if(topLevel) {
+                    VerticalDisplay(selectedCard, statusText, onDelete).Compose(subItems)
+                } else {
+                        subItems.value.forEach { subItem ->
+                            key(subItem.id) {
+                                ItemCardMaker(
+                                    subItem,
+                                    selectedCard,
+                                    statusText
+                                ) { subItem -> deleteItemFromCard(subItems, subItem) }.Compose()
+                            }
                         }
-                    }
                 }
             }
         }

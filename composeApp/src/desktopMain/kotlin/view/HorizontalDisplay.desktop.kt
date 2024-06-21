@@ -23,7 +23,7 @@ actual class HorizontalDisplay actual constructor(val statusText: MutableState<S
             LazyRow(state = scrollState, modifier = Modifier.weight(1f)) {
                 items(itemList.value) { item ->
                     key(item.id) {
-                        ItemCardMaker(item, selectedItem, statusText, onDelete).compose()
+                        ItemCardMaker(item, selectedItem, statusText, onDelete).Compose(topLevel = true)
                     }
                 }
             }

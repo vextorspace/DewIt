@@ -55,7 +55,7 @@ private fun deleteItemFromList(
 ) {
     val newList = itemLists.value.toMutableList()
     newList.remove(it)
-    itemLists.value 
+    itemLists.value  = newList
 }
 
 

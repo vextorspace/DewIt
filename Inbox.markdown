@@ -9,7 +9,9 @@
 - [x] delete a card
 - [x] edit a card
 - [x] add a list
-- [ ] delete a list
+- [x] delete a list
+- [ ] remember state in android when minimized
+- [ ] remember state when closed
 - [ ] rename a list
 - [ ] move a list
 - [ ] display sub-cards

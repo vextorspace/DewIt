@@ -66,7 +66,7 @@ class ItemCardMaker(
                     }
                     OnEditCard(selectedCard, item).Compose()
                     OnAddCard(statusText, item.subItems, subItems).Compose()
-                    OnDeleteCard(item, parentItems, parentItemsState).Compose()
+                    OnDeleteCard(item, parentItems, parentItemsState, statusText).Compose()
                 }
 
                 if(topLevel) {

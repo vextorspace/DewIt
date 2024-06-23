@@ -7,7 +7,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollbarAdapter
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import model.Item
@@ -15,24 +17,27 @@ import model.Item
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class VerticalDisplay actual constructor(
     val selectedCard: MutableState<Item?>,
-    val statusText: MutableState<String>
+    val statusText: MutableState<String>,
+    val parentItems: MutableList<Item>,
+    val parentItemsState: MutableState<MutableList<Item>>
 ){
     @Composable
-    actual fun Compose(itemList: MutableState<MutableList<Item>>) {
+    actual fun Compose() {
         val scrollState = rememberLazyListState()
 
         Row(modifier = Modifier.fillMaxWidth()) {
             LazyColumn(
                 state = scrollState,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.Start
             ) {
-                items(itemList.value) { item ->
+                items(parentItemsState.value) { item ->
                     key(item.id) {
                         ItemCardMaker(
                             item,
+                            parentItems,
+                            parentItemsState,
                             selectedCard,
-                            statusText,
-                            itemList
+                            statusText
                         ).Compose(topLevel = false)
                     }
                 }

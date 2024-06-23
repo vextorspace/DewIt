@@ -20,9 +20,10 @@ import view.actions.OnEditCard
 
 class ItemCardMaker(
     val item: Item,
+    val parentItems: MutableList<Item>,
+    val parentItemsState: MutableState<MutableList<Item>>,
     val selectedCard: MutableState<Item?>,
-    val statusText: MutableState<String>,
-    val parentItems: MutableState<MutableList<Item>>
+    val statusText: MutableState<String>
 ) {
 
     @Composable
@@ -64,20 +65,26 @@ class ItemCardMaker(
                         Text(contentState.value)
                     }
                     OnEditCard(selectedCard, item).Compose()
-                    OnAddCard(statusText, subItems).Compose()
-                    OnDeleteCard(item, parentItems).Compose()
+                    OnAddCard(statusText, item.subItems, subItems).Compose()
+                    OnDeleteCard(item, parentItems, parentItemsState).Compose()
                 }
 
                 if(topLevel) {
-                    VerticalDisplay(selectedCard, statusText).Compose(subItems)
+                    VerticalDisplay(
+                        selectedCard,
+                        statusText,
+                        item.subItems,
+                        subItems
+                    ).Compose()
                 } else {
                     subItems.value.forEach { subItem ->
                         key(subItem.id) {
                             ItemCardMaker(
                                 subItem,
+                                item.subItems,
+                                subItems,
                                 selectedCard,
-                                statusText,
-                                subItems
+                                statusText
                             ).Compose()
                         }
                     }

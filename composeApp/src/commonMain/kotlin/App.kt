@@ -17,18 +17,19 @@ import view.actions.OnAddCard
 @Composable
 @Preview
 fun App() {
-    val itemList = remember {
-        mutableStateOf(createGtdList().toMutableList())
+    val itemList =createGtdList().toMutableList()
+    val itemListState = remember {
+        mutableStateOf(itemList)
     }
     val statusText = remember {
-        mutableStateOf("Status: ${itemList.value.size}")
+        mutableStateOf("Status: ${itemList.size}")
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("DewIt Now")},
-                actions = { OnAddCard(statusText, itemList).Compose() }
+                actions = { OnAddCard(statusText, itemList, itemListState).Compose() }
             )
         },
         bottomBar = {
@@ -40,20 +41,21 @@ fun App() {
 
         Column(modifier = Modifier.padding(innerPadding)) {
             HorizontalDisplay(
-                statusText = statusText
-            ).Compose(itemList)
+                statusText = statusText,
+                itemList = itemList,
+                itemListState = itemListState
+            ).Compose()
         }
     }
 }
 
 private fun createGtdList(): List<Item> {
     val itemList = listOf(
-
-                Item(
-                "Inbox",
-                listOf(
-                    Item("Review How You Use This App")
-                )
+        Item(
+            "Inbox",
+            listOf(
+                Item("Review How You Use This App")
+            )
         ),
         Item(
             "Todo",

@@ -9,22 +9,23 @@ import model.Item
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class VerticalDisplay actual constructor(
     val selectedCard: MutableState<Item?>,
-    val statusText: MutableState<String>
+    val statusText: MutableState<String>,
+    val parentItems: MutableList<Item>,
+    val parentItemsState: MutableState<MutableList<Item>>
 ) {
     @Composable
-    actual fun Compose(itemList: MutableState<MutableList<Item>>) {
-        val selectedCard = remember { mutableStateOf<Item?>(null)}
-
+    actual fun Compose() {
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(itemList.value) { item ->
+            items(parentItemsState.value) { item ->
                 key(item) {
                     ItemCardMaker(
                         item,
+                        parentItems,
+                        parentItemsState,
                         selectedCard,
-                        statusText,
-                        itemList
+                        statusText
                     ).Compose()
                 }
             }

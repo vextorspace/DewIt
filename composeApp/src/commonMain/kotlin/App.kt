@@ -1,12 +1,10 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import model.Item
@@ -17,19 +15,18 @@ import view.actions.OnAddCard
 @Composable
 @Preview
 fun App() {
-    val itemList =createGtdList().toMutableList()
-    val itemListState = remember {
-        mutableStateOf(itemList)
+    val itemListState = rememberSaveable {
+        mutableStateOf(createGtdList())
     }
     val statusText = remember {
-        mutableStateOf("Status: ${itemList.size}")
+        mutableStateOf("Status: ${itemListState.value.size}")
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("DewIt Now")},
-                actions = { OnAddCard(statusText, itemList, itemListState).Compose() }
+                title = { Text("DewIt Now") },
+                actions = { OnAddCard(statusText, itemListState.value, itemListState).Compose() }
             )
         },
         bottomBar = {
@@ -42,14 +39,14 @@ fun App() {
         Column(modifier = Modifier.padding(innerPadding)) {
             HorizontalDisplay(
                 statusText = statusText,
-                itemList = itemList,
+                itemList = itemListState.value,
                 itemListState = itemListState
             ).Compose()
         }
     }
 }
 
-private fun createGtdList(): List<Item> {
+private fun createGtdList(): MutableList<Item> {
     val itemList = listOf(
         Item(
             "Inbox",
@@ -78,5 +75,5 @@ private fun createGtdList(): List<Item> {
         )
     )
 
-    return itemList
+    return itemList.toMutableList()
 }

@@ -6,4 +6,10 @@ import model.Item
 
 class DewItViewModel {
     val itemsState: MutableState<MutableList<Item>> = mutableStateOf(mutableListOf())
+
+    companion object {
+        fun fromJson(viewModelJson: String): DewItViewModel {
+            return DewItViewModel()
+        }
+    }
 }

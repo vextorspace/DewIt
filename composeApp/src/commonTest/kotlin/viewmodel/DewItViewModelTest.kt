@@ -2,6 +2,8 @@ package viewmodel
 
 import androidx.compose.runtime.MutableState
 import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import model.Item
 import kotlin.test.Test
@@ -32,4 +34,15 @@ class DewItViewModelTest {
         items.shouldBeEmpty()
     }
 
+    @Test
+    fun `DewItViewModel reconstituted from an empty json string gives empty list`() {
+        // Given
+        val viewModelJson = "[]"
+
+        // When
+        val viewModel = DewItViewModel.fromJson(viewModelJson)
+
+        // Then
+        viewModel.itemsState.value.shouldBeEmpty()
+    }
 }

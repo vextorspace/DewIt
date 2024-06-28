@@ -67,11 +67,8 @@ kotlin {
         val androidInstrumentedTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(libs.androidx.test.core)
                 implementation(libs.androidx.test.junit)
-                implementation(libs.androidx.test.rules)
                 implementation(libs.androidx.test.runner)
-
                 implementation(libs.kotest.assertions.core)
             }
         }

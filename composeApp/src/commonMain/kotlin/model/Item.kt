@@ -15,4 +15,11 @@ data class Item(var content: String = "New Item", val subItems: MutableList<Item
     fun remove(subItem: Item) {
         subItems.remove(subItem)
     }
+
+    companion object {
+        fun fromJson(itemJson: String): Item? {
+            return null
+        }
+    }
+
 }

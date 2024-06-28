@@ -2,6 +2,7 @@ package model
 
 import ids.UUID
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 @Serializable
 data class Item(var content: String = "New Item", val subItems: MutableList<Item> = mutableListOf(), val id: String = UUID.generateUUID()) {
@@ -18,7 +19,8 @@ data class Item(var content: String = "New Item", val subItems: MutableList<Item
 
     companion object {
         fun fromJson(itemJson: String): Item? {
-            return null
+            val decoder = Json { ignoreUnknownKeys = true }
+            return decoder.decodeFromString<Item?>(itemJson)
         }
     }
 

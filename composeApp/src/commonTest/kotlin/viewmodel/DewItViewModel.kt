@@ -1,5 +1,7 @@
 package viewmodel
 
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldContainOnly
 import model.Item
@@ -24,4 +26,22 @@ class DewItViewModelTest {
         viewModel.items.shouldContainOnly(item)
     }
 
+    @Test
+    fun `ViewModel can subtract item from list`() {
+        val viewModel = DewItViewModel.emptyModel()
+        val item = Item("New Item")
+        viewModel.add(item)
+
+        viewModel.subtract(item).shouldBeTrue()
+
+        viewModel.items.shouldBeEmpty()
+    }
+
+    @Test
+    fun `ViewModel subtract returns false if item not in list`() {
+        val viewModel = DewItViewModel.emptyModel()
+        val item = Item("New Item")
+
+        viewModel.subtract(item).shouldBeFalse()
+    }
 }

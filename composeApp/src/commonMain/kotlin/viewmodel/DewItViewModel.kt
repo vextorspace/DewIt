@@ -12,6 +12,10 @@ class DewItViewModel(initialItems: List<Item>) {
         _items.add(item)
     }
 
+    fun subtract(item: Item): Boolean {
+        return _items.remove(item)
+    }
+
 
     companion object {
         fun emptyModel(): DewItViewModel {

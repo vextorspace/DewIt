@@ -2,6 +2,7 @@ package viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import kotlinx.serialization.json.Json
 import model.Item
 
 class DewItViewModel(initialItems: List<Item> = listOf()) {
@@ -13,7 +14,10 @@ class DewItViewModel(initialItems: List<Item> = listOf()) {
 
             if(withoutSpaces.isEmpty() || withoutSpaces == "[]")
                 return DewItViewModel()
-            return DewItViewModel(listOf(Item("Inbox")))
+
+            val decoder = Json { ignoreUnknownKeys = true }
+            val itemList: List<Item> = decoder.decodeFromString(viewModelJson)
+            return DewItViewModel(itemList)
         }
     }
 }

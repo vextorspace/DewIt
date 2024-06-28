@@ -83,4 +83,47 @@ class DewItViewModelTest {
         items[0].content.shouldBe("Inbox")
         items[0].subItems.shouldBeEmpty()
     }
+
+    @Test
+    fun `DewItViewModel reconstituted with two items in list`() {
+        // Given
+        val viewModelJson = """
+            [
+                {
+                    "content":"Inbox"
+                    ,"subItems":[
+                        {
+                            "content":"Review How You Use This App"
+                            ,"subItems":[]
+                            ,"id":"::CHILD_UUID::"
+                        }
+                        
+                    ]
+                    ,"id":"::PARENT_UUID::"
+                },
+                {
+                    "content":"Todo"
+                    ,"subItems":[]
+                    ,"id":"::OTHER_UUID::"
+                }
+            ]
+            """.trimIndent()
+
+        // When
+        val viewModel = DewItViewModel.fromJson(viewModelJson)
+
+        // Then
+        val items = viewModel.itemsState.value
+        items.shouldHaveSize(2)
+        items.shouldContainExactly(
+            Item(
+                "Inbox",
+                mutableListOf(
+                    Item("Review How You Use This App", id = "::CHILD_UUID::")
+                ),
+                "::PARENT_UUID::"
+            ),
+            Item("Todo", mutableListOf(), "::OTHER_UUID::")
+        )
+    }
 }

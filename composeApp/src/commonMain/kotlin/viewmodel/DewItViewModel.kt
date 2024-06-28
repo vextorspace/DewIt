@@ -9,7 +9,11 @@ class DewItViewModel(initialItems: List<Item> = listOf()) {
 
     companion object {
         fun fromJson(viewModelJson: String): DewItViewModel {
-            return DewItViewModel()
+            val withoutSpaces = viewModelJson.replace("\\s".toRegex(), "")
+
+            if(withoutSpaces.isEmpty() || withoutSpaces == "[]")
+                return DewItViewModel()
+            return DewItViewModel(listOf(Item("Inbox")))
         }
     }
 }

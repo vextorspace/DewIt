@@ -3,6 +3,8 @@ package viewmodel
 import androidx.compose.runtime.MutableState
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import model.Item
 import kotlin.test.Test
@@ -58,5 +60,27 @@ class DewItViewModelTest {
 
         // Then
         viewModel.itemsState.value.shouldBeEmpty()
+    }
+
+    @Test
+    fun `DewItViewModel reconstituted with one item in list`() {
+        // Given
+        val viewModelJson = """
+            [
+                {
+                    "content":"Inbox"
+                    ,"subItems":[]
+                }
+            ]
+            """.trimIndent()
+
+        // When
+        val viewModel = DewItViewModel.fromJson(viewModelJson)
+
+        // Then
+        val items = viewModel.itemsState.value
+        items.shouldHaveSize(1)
+        items[0].content.shouldBe("Inbox")
+        items[0].subItems.shouldBeEmpty()
     }
 }

@@ -44,4 +44,14 @@ class DewItViewModelTest {
 
         viewModel.subtract(item).shouldBeFalse()
     }
+
+    @Test
+    fun `ViewModel can set new list`() {
+        val viewModel = DewItViewModel.emptyModel()
+        val items = listOf(Item("New Item 1"), Item("New Item 2"))
+
+        viewModel.setItems(items)
+
+        viewModel.items.shouldContainOnly(items[0], items[1])
+    }
 }

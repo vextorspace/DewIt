@@ -8,6 +8,12 @@ class DewItViewModel(initialItems: List<Item>) {
     val items: List<Item>
         get() = _items
 
+    fun setItems(items: List<Item>) {
+        _items.clear()
+        _items.addAll(items)
+    }
+
+
     fun add(item: Item) {
         _items.add(item)
     }

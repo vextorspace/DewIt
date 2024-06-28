@@ -1,10 +1,18 @@
 package viewmodel
 
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldContainOnly
 import model.Item
 import kotlin.test.Test
 
 class DewItViewModelTest {
+
+    @Test
+    fun `ViewModel emptyModel returns empty list`() {
+        val viewModel = DewItViewModel.emptyModel()
+
+        viewModel.items.shouldBeEmpty()
+    }
 
     @Test
     fun `ViewModel can add item to list`() {
@@ -15,4 +23,5 @@ class DewItViewModelTest {
 
         viewModel.items.shouldContainOnly(item)
     }
+
 }

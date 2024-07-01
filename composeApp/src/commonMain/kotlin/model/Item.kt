@@ -18,18 +18,15 @@ data class Item(var content: String = "New Item", val subItems: MutableList<Item
     }
 
     fun toJson(): String {
-        return encoder()
+        return encoder
             .encodeToString(serializer(), this)
     }
 
     companion object {
-        fun encoder(): Json {
-            return Json { ignoreUnknownKeys = true }
-        }
+        val encoder = Json { ignoreUnknownKeys = true }
 
         fun fromJson(itemJson: String): Item? {
-            return encoder()
-                .decodeFromString<Item?>(itemJson)
+            return encoder.decodeFromString<Item?>(itemJson)
         }
     }
 

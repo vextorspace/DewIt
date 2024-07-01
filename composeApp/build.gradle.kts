@@ -55,6 +55,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.kotest.assertions.core)
+                implementation(libs.kotest.assertions.json)
             }
         }
         val desktopTest by getting{

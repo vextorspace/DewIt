@@ -51,8 +51,7 @@ class ItemReconstitutesFromJsonTest {
         val subItemJson = """
             {
                 "content": "$subItemContent",
-                "id": "$subId",
-                "subItems": []
+                "id": "$subId"
             }
         """
         val itemJson = """

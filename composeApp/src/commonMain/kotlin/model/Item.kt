@@ -17,6 +17,11 @@ data class Item(var content: String = "New Item", val subItems: MutableList<Item
         subItems.remove(subItem)
     }
 
+    fun toJson(): String {
+        val encoder =  Json { ignoreUnknownKeys = true }
+        return encoder.encodeToString(serializer(), this)
+    }
+
     companion object {
         fun fromJson(itemJson: String): Item? {
             val decoder = Json { ignoreUnknownKeys = true }

@@ -1,6 +1,7 @@
 package viewmodel
 
 import androidx.compose.runtime.MutableState
+import io.kotest.assertions.json.shouldEqualJson
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldHaveSize
@@ -86,44 +87,116 @@ class DewItViewModelTest {
 
     @Test
     fun `DewItViewModel reconstituted with two items in list`() {
-        // Given
-        val viewModelJson = """
-            [
-                {
-                    "content":"Inbox"
-                    ,"subItems":[
-                        {
-                            "content":"Review How You Use This App"
-                            ,"subItems":[]
-                            ,"id":"::CHILD_UUID::"
-                        }
-                        
-                    ]
-                    ,"id":"::PARENT_UUID::"
-                },
-                {
-                    "content":"Todo"
-                    ,"subItems":[]
-                    ,"id":"::OTHER_UUID::"
-                }
-            ]
-            """.trimIndent()
+        val viewModelJson = makeJsonOfDewItModelWithTwoItems()
 
-        // When
         val viewModel = DewItViewModel.fromJson(viewModelJson)
 
-        // Then
         val items = viewModel.itemsState.value
+
         items.shouldHaveSize(2)
-        items.shouldContainExactly(
-            Item(
-                "Inbox",
-                mutableListOf(
-                    Item("Review How You Use This App", id = "::CHILD_UUID::")
-                ),
-                "::PARENT_UUID::"
+
+        val expectedJson1 = Item(
+            "Inbox",
+            mutableListOf(
+                Item("Review How You Use This App", id = "::CHILD_UUID::")
             ),
-            Item("Todo", mutableListOf(), "::OTHER_UUID::")
+            "::PARENT_UUID::"
+        )
+        val expectedItem2 = Item("Todo", mutableListOf(), "::OTHER_UUID::")
+
+        items.shouldContainExactly(
+            expectedJson1,
+            expectedItem2
         )
     }
+
+    @Test
+    fun `DewItViewModel stores items in json`() {
+        val content1 = "Item 1"
+        val uuid1 = "::UUID 1::"
+        val content2 = "Item 2"
+        val uuid2 = "::UUID 2::"
+        val subContent = "Sub Item"
+        val subId = "::SUB_UUID::"
+        val viewModel = makeDewItModel(subContent, subId, content1, uuid1, content2, uuid2)
+
+
+        // When
+        val viewModelJson = viewModel.toJson()
+
+        val expectedJson = expected(content1, uuid1, content2, subContent, subId, uuid2)
+
+        viewModelJson.shouldEqualJson(expectedJson)
+    }
+
+    private fun makeJsonOfDewItModelWithTwoItems(): String {
+        val viewModelJson = """
+                [
+                    {
+                        "content":"Inbox"
+                        ,"subItems":[
+                            {
+                                "content":"Review How You Use This App"
+                                ,"subItems":[]
+                                ,"id":"::CHILD_UUID::"
+                            }
+                            
+                        ]
+                        ,"id":"::PARENT_UUID::"
+                    },
+                    {
+                        "content":"Todo"
+                        ,"subItems":[]
+                        ,"id":"::OTHER_UUID::"
+                    }
+                ]
+                """.trimIndent()
+        return viewModelJson
+    }
+
+
+    private fun makeDewItModel(
+        subContent: String,
+        subId: String,
+        content1: String,
+        uuid1: String,
+        content2: String,
+        uuid2: String
+    ): DewItViewModel {
+        val subItem = Item(subContent, id = subId)
+        val item1 = Item(content1, id = uuid1)
+        val item2 = Item(
+            content = content2,
+            subItems = mutableListOf(subItem),
+            id = uuid2
+        )
+        val items = listOf(item1, item2)
+        val viewModel = DewItViewModel(items)
+        return viewModel
+    }
+
+    private fun expected(
+        content1: String,
+        uuid1: String,
+        content2: String,
+        subContent: String,
+        subId: String,
+        uuid2: String
+    ) = """
+                [
+                    {
+                        "content":"$content1",
+                        "id":"$uuid1"
+                    },
+                    {
+                        "content":"$content2",
+                        "subItems":[
+                            {
+                                "content":"$subContent",
+                                "id":"$subId"
+                            }
+                        ],
+                        "id":"$uuid2"
+                    }
+                ]""".trimIndent()
 }

@@ -18,6 +18,8 @@ actual class AppFile actual constructor(val fileName: String) {
     }
 
     actual fun readText(): String? {
+        if (!exists()) return null
+
         return context?.openFileInput(fileName)?.bufferedReader()?.use {
             it.readText()
         }

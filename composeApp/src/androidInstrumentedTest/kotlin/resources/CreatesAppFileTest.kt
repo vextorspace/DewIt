@@ -10,9 +10,12 @@ import kotlin.test.Test
 class CreatesAppFileTest {
     val saveFile = AppFile("saveFile.json")
 
+    init {
+        AppFile.context = InstrumentationRegistry.getInstrumentation().targetContext
+    }
+
     @BeforeTest
     fun setup() {
-        AppFile.context = InstrumentationRegistry.getInstrumentation().targetContext
         if(saveFile.exists()) {
             saveFile.delete()
         }

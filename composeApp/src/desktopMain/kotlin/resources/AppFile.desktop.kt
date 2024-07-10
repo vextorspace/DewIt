@@ -15,6 +15,14 @@ actual class AppFile actual constructor(fileName: String) {
     }
 
     actual fun delete(): Boolean {
+        if (!file.exists())
+            return false
         return file.delete()
+    }
+
+    actual fun readText(): String? {
+        if (!file.exists())
+            return null
+        return file.readText()
     }
 }

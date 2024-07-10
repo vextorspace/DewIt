@@ -13,4 +13,8 @@ actual class AppFile actual constructor(fileName: String) {
     actual fun delete(): Boolean {
         TODO("Not yet implemented")
     }
+
+    actual fun readText(): String? {
+        TODO("Not yet implemented")
+    }
 }

@@ -5,4 +5,5 @@ expect class AppFile(fileName: String) {
     fun exists(): Boolean
     fun create(): Boolean
     fun delete(): Boolean
+    fun readText(): String?
 }

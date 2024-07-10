@@ -17,6 +17,12 @@ actual class AppFile actual constructor(val fileName: String) {
         return context?.deleteFile(fileName) ?: false
     }
 
+    actual fun readText(): String? {
+        return context?.openFileInput(fileName)?.bufferedReader()?.use {
+            it.readText()
+        }
+    }
+
     companion object {
         var context: android.content.Context? = null
     }

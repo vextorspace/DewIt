@@ -1,16 +1,23 @@
 package resources
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class AppFile actual constructor(fileName: String) {
+actual class AppFile actual constructor(val fileName: String) {
     actual fun exists(): Boolean {
-        TODO("Not yet implemented")
+        return context?.getFileStreamPath(fileName)?.exists() ?: false
     }
 
     actual fun create(): Boolean {
-        TODO("Not yet implemented")
+        return context?.openFileOutput(fileName, android.content.Context.MODE_PRIVATE)?.use {
+            it.write(byteArrayOf())
+            true
+        } ?: false
     }
 
     actual fun delete(): Boolean {
-        TODO("Not yet implemented")
+        return context?.deleteFile(fileName) ?: false
+    }
+
+    companion object {
+        var context: android.content.Context? = null
     }
 }

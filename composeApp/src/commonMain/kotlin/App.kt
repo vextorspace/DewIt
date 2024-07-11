@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import model.Item
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import resources.AppFile
 import view.HorizontalDisplay
 import view.actions.OnAddCard
 
@@ -43,6 +44,9 @@ fun App() {
                 itemListState = itemListState
             ).Compose()
         }
+
+
+        
     }
 }
 

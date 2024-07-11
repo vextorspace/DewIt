@@ -23,5 +23,4 @@ class FakeModelSaver: ModelSaver {
     override fun save() {
         saveCalled = true
     }
-
 }

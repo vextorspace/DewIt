@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import resources.AppFile
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppFile.context = this
@@ -16,6 +17,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             App()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AppFile.context = null
+
     }
 }
 

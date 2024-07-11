@@ -6,7 +6,7 @@ import io.kotest.matchers.shouldBe
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-class WriteAppFileTest {
+class WriteAppFileDesktopTest {
     val appFile = AppFile("appFile.json")
 
     @BeforeTest

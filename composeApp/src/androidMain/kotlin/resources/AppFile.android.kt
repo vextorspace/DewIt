@@ -25,6 +25,12 @@ actual class AppFile actual constructor(val fileName: String) {
         }
     }
 
+    actual fun writeText(textToWrite: String) {
+        context?.openFileOutput(fileName, android.content.Context.MODE_PRIVATE)?.use {
+            it.write(textToWrite.toByteArray())
+        }
+    }
+
     companion object {
         var context: android.content.Context? = null
     }

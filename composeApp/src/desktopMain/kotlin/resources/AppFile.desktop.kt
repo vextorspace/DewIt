@@ -26,7 +26,7 @@ actual class AppFile actual constructor(fileName: String) {
         return file.readText()
     }
 
-    fun writeText(textToWrite: String) {
+    actual fun writeText(textToWrite: String) {
         file.writeText(textToWrite)
     }
 }

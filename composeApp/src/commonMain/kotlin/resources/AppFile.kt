@@ -6,4 +6,5 @@ expect class AppFile(fileName: String) {
     fun create(): Boolean
     fun delete(): Boolean
     fun readText(): String?
+    fun writeText(textToWrite: String)
 }

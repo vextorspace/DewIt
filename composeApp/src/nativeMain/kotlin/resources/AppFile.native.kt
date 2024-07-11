@@ -17,4 +17,8 @@ actual class AppFile actual constructor(fileName: String) {
     actual fun readText(): String? {
         TODO("Not yet implemented")
     }
+
+    actual fun writeText(textToWrite: String) {
+        TODO("Not yet implemented")
+    }
 }

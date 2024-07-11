@@ -7,26 +7,25 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import resources.AppFile
-import state.AndroidModelSaver
 import state.LifeCycle
 import state.ModelSaver
 import viewmodel.GtdModel
 
 class MainActivity : ComponentActivity() {
-    val model = GtdModel.createModel()
     val lifeCycle = LifeCycle(
-        AndroidModelSaver(
+        ModelSaver(
             fileName = ModelSaver.DEFAULT_SAVE_FILE_NAME,
-            model = model
+            defaultModel = GtdModel.createModel()
         )
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppFile.context = this
+        lifeCycle.onInit()
 
         setContent {
-            App()
+            App(lifeCycle)
         }
     }
 
@@ -40,5 +39,12 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App()
+    val lifeCycle = LifeCycle(
+        ModelSaver(
+            fileName = ModelSaver.DEFAULT_SAVE_FILE_NAME,
+            defaultModel = GtdModel.createModel()
+        )
+    )
+
+    App(lifeCycle)
 }

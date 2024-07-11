@@ -5,7 +5,6 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.equality.shouldBeEqualUsingFields
 import io.kotest.matchers.string.shouldContain
 import resources.AppFile
-import viewmodel.DewItViewModel
 import viewmodel.GtdModel
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -25,7 +24,7 @@ class DesktopModelSaverTest {
 
     @Test
     fun `DesktopModelSaver creates file`() {
-        val modelSaver: ModelSaver = DesktopModelSaver(fileName, model)
+        val modelSaver = ModelSaver(fileName, model)
 
         saveFile.exists().shouldBeFalse()
 
@@ -37,12 +36,18 @@ class DesktopModelSaverTest {
     }
 
     @Test
-    fun `DesktopModelSaver reads from file`() {
-        val modelSaver: ModelSaver = DesktopModelSaver(fileName, model)
+    fun `ModelSaver reads from file`() {
+        saveModelToFile()
 
-        modelSaver.save()
+        val modelSaver = ModelSaver(fileName, GtdModel.createModel())
+        modelSaver.load()
 
-        val loadedModel: DewItViewModel = modelSaver.load()
+        val loadedModel = modelSaver.model
         loadedModel.shouldBeEqualUsingFields(model)
+    }
+
+    private fun saveModelToFile() {
+        val initialModel = ModelSaver(fileName, model)
+        initialModel.save()
     }
 }

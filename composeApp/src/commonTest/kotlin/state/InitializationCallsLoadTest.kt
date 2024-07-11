@@ -1,19 +1,18 @@
-
 package state
 
 import io.kotest.matchers.shouldBe
+import viewmodel.DewItViewModel
 import kotlin.test.Test
 
-class ShutdownCallOnExitTest {
+class InitializationCallsLoadTest {
 
     @Test
     fun `Shutdown Calls Save`() {
         val modelSaver = FakeModelSaver()
         val lifeCycle = LifeCycle(modelSaver)
 
-        lifeCycle.onShutdown()
+        lifeCycle.onInit()
 
-        modelSaver.saveCalled shouldBe true
+        modelSaver.loadCalled shouldBe true
     }
 }
-

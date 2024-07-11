@@ -3,7 +3,7 @@ package resources
 import android.util.Log
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class AppFile actual constructor(val fileName: String) {
+actual class AppFile actual constructor(private val fileName: String) {
     actual fun exists(): Boolean {
         return context?.getFileStreamPath(fileName)?.exists() ?: false
     }

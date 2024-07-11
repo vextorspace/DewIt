@@ -3,6 +3,8 @@ package state
 import androidx.test.platform.app.InstrumentationRegistry
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.equality.shouldBeEqualUsingFields
+import io.kotest.matchers.string.shouldContain
 import resources.AppFile
 import viewmodel.GtdModel
 import kotlin.test.BeforeTest
@@ -34,5 +36,16 @@ class AndroidModelSaverTest {
         androidModelSaver.save()
 
         saveFile.exists().shouldBeTrue()
+        saveFile.readText().shouldContain(model.toJson())
+    }
+
+    @Test
+    fun androidModelSaverLoadsASavedFile() {
+        val androidModelSaver: ModelSaver = AndroidModelSaver(fileName, model)
+
+        androidModelSaver.save()
+
+        val loadedModel = androidModelSaver.load()
+        loadedModel.shouldBeEqualUsingFields(model)
     }
 }

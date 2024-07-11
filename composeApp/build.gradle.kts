@@ -94,7 +94,7 @@ android {
     sourceSets["androidTest"].resources.srcDirs("src/commonTest/resources")
 
     defaultConfig {
-        applicationId = "com.ronnev"
+        applicationId = "com.ronnev.DewIt"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -129,7 +129,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.ronnev"
+            packageName = "com.ronnev.DewIt"
             packageVersion = "1.0.0"
         }
     }

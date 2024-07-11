@@ -9,12 +9,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import resources.AppFile
 import state.AndroidModelSaver
 import state.LifeCycle
+import state.ModelSaver
 import viewmodel.GtdModel
 
 class MainActivity : ComponentActivity() {
     val model = GtdModel.createModel()
-    val fileName = "DewItNowSave.json"
-    val lifeCycle = LifeCycle(AndroidModelSaver(fileName, model))
+    val lifeCycle = LifeCycle(
+        AndroidModelSaver(
+            fileName = ModelSaver.DEFAULT_SAVE_FILE_NAME,
+            model = model
+        )
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

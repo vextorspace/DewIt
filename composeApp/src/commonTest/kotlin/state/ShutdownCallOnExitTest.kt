@@ -2,6 +2,7 @@
 package state
 
 import io.kotest.matchers.shouldBe
+import viewmodel.DewItViewModel
 import kotlin.test.Test
 
 class ShutdownCallOnExitTest {
@@ -22,5 +23,9 @@ class FakeModelSaver: ModelSaver {
 
     override fun save() {
         saveCalled = true
+    }
+
+    override fun load(): DewItViewModel {
+        throw NotImplementedError()
     }
 }

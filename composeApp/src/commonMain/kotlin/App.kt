@@ -7,17 +7,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import model.Item
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import resources.AppFile
 import view.HorizontalDisplay
 import view.actions.OnAddCard
+import viewmodel.GtdModel
 
 @Composable
 @Preview
 fun App() {
     val itemListState = rememberSaveable {
-        mutableStateOf(createGtdList())
+        mutableStateOf(GtdModel.createList())
     }
     val statusText = remember {
         mutableStateOf("Status: ${itemListState.value.size}")
@@ -44,40 +43,6 @@ fun App() {
                 itemListState = itemListState
             ).Compose()
         }
-
-
-        
     }
 }
 
-private fun createGtdList(): MutableList<Item> {
-    val itemList = listOf(
-        Item(
-            "Inbox",
-            listOf(
-                Item("Review How You Use This App")
-            )
-        ),
-        Item(
-            "Todo",
-            listOf(
-                Item("Read GTD Book"),
-                Item("Do a Dump")
-            )
-        ),
-        Item(
-            "Projects"
-        ),
-        Item(
-            "Someday Maybe"
-        ),
-        Item(
-            "Waiting On"
-        ),
-        Item(
-            "References"
-        )
-    )
-
-    return itemList.toMutableList()
-}

@@ -1,6 +1,7 @@
 package resources
 
 import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -43,4 +44,16 @@ class WriteAppFileTest {
             .shouldBe(textToWrite2)
     }
 
+    @Test
+    fun `If file does not exist creates new`() {
+        val textToWrite = "::ANY TEXT AT ALL::"
+        appFile.exists().shouldBeFalse()
+
+        appFile.writeText(textToWrite)
+
+        appFile.exists().shouldBeTrue()
+
+        appFile.readText()
+            .shouldBe(textToWrite)
+    }
 }

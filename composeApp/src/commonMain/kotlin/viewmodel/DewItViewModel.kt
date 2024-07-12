@@ -12,6 +12,10 @@ class DewItViewModel(initialItems: List<Item> = listOf()) {
             .encodeToString(ListSerializer(Item.serializer()), itemsState.value)
     }
 
+    fun addItem(item: Item) {
+        itemsState.value.add(item)
+    }
+
     val itemsState: MutableState<MutableList<Item>> = mutableStateOf(initialItems.toMutableList())
 
     companion object {

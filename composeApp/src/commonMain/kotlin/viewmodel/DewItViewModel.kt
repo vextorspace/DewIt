@@ -7,16 +7,18 @@ import kotlinx.serialization.json.Json
 import model.Item
 
 class DewItViewModel(initialItems: List<Item> = listOf()) {
+    val itemsState: MutableState<MutableList<Item>> = mutableStateOf(initialItems.toMutableList())
+
     fun toJson(): String {
         return encoder
             .encodeToString(ListSerializer(Item.serializer()), itemsState.value)
     }
 
     fun addItem(item: Item) {
+        if(itemsState.value.contains(item))
+            return
         itemsState.value.add(item)
     }
-
-    val itemsState: MutableState<MutableList<Item>> = mutableStateOf(initialItems.toMutableList())
 
     companion object {
         val encoder = Json { ignoreUnknownKeys = true }

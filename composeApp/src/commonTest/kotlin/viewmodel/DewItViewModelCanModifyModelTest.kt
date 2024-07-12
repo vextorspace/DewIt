@@ -20,4 +20,17 @@ class DewItViewModelCanModifyModelTest {
         viewModel.itemsState.value shouldHaveSize 1
         viewModel.itemsState.value[0] shouldBe item
     }
+
+    @Test
+    fun `cannot add same item twice`() {
+        //Given item in model
+        val item = Item("Item 1")
+        val viewModel = DewItViewModel(listOf(item))
+
+        //When item is added again
+        viewModel.addItem(item)
+
+        //Then the item is only in the list once
+        viewModel.itemsState.value shouldHaveSize 1
+    }
 }

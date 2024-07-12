@@ -1,5 +1,6 @@
 package model
 
+import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldContainInOrder
 import kotlin.test.Test
 
@@ -26,5 +27,14 @@ class SubItemOrderMattersTest {
         item.add(subItem2)
         item.remove(subItem1)
         item.subItems.shouldContainInOrder(subItem3, subItem2)
+    }
+
+    @Test
+    fun `same item cannot be added twice to an item`() {
+        val item = Item("item")
+        val subItem = Item("subItem")
+        item.add(subItem)
+        item.add(subItem)
+        item.subItems.shouldContainExactly(subItem)
     }
 }

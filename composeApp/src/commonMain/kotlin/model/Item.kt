@@ -10,6 +10,8 @@ data class Item(var content: String = "New Item", val subItems: MutableList<Item
     constructor(content: String, subItems: Collection<Item>) : this(content, subItems.toMutableList())
 
     fun add(subItem: Item) {
+        if(subItems.contains(subItem))
+            return
         subItems.add(subItem)
     }
 

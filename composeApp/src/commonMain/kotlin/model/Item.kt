@@ -5,9 +5,11 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
 @Serializable
-data class Item(var content: String = "New Item", val subItems: MutableList<Item> = mutableListOf(), val id: String = UUID.generateUUID()) {
+data class Item(var content: String = "New Item", val subItems: MutableList<Item> = mutableListOf(), val id: String = UUID.generateUUID(), val workflow: MutableList<ItemWorkflow> = mutableListOf()) {
     constructor(content: String) : this(content, mutableListOf())
     constructor(content: String, subItems: Collection<Item>) : this(content, subItems.toMutableList())
+
+    val workflows: MutableList<ItemWorkflow> = mutableListOf()
 
     fun add(subItem: Item) {
         if(subItems.contains(subItem))

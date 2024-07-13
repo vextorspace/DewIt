@@ -2,22 +2,21 @@ package viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import model.Item
 
-class DewItViewModel(initialItems: List<Item> = listOf()) {
-    val itemsState: MutableState<MutableList<Item>> = mutableStateOf(initialItems.toMutableList())
+class DewItViewModel(val item: Item = Item()) {
+    constructor(initialItems: List<Item>) : this(Item("Root", initialItems.toMutableList()))
+
+    val itemsState: MutableState<MutableList<Item>> = mutableStateOf(item.subItems)
 
     fun toJson(): String {
         return encoder
-            .encodeToString(ListSerializer(Item.serializer()), itemsState.value)
+            .encodeToString(Item.serializer(), item)
     }
 
-    fun addItem(item: Item) {
-        if(itemsState.value.contains(item))
-            return
-        itemsState.value.add(item)
+    fun addItem(newItem: Item) {
+        item.add(newItem)
     }
 
     companion object {
@@ -30,8 +29,23 @@ class DewItViewModel(initialItems: List<Item> = listOf()) {
                 return DewItViewModel()
 
             val decoder = Json { ignoreUnknownKeys = true }
-            val itemList: List<Item> = decoder.decodeFromString(viewModelJson)
-            return DewItViewModel(itemList)
+            try {
+                val item: Item = decoder.decodeFromString(viewModelJson)
+                return DewItViewModel(item)
+            } catch (e: Exception) {
+                return fromV0Json(viewModelJson)
+            }
+        }
+
+        fun fromV0Json(viewModelJson: String): DewItViewModel {
+            val withoutSpaces = viewModelJson.replace("\\s".toRegex(), "")
+
+            if(withoutSpaces.isEmpty() || withoutSpaces == "[]")
+                return DewItViewModel()
+
+            val decoder = Json { ignoreUnknownKeys = true }
+            val items: List<Item> = decoder.decodeFromString(viewModelJson)
+            return DewItViewModel(items)
         }
     }
 }

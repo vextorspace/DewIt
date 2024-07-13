@@ -5,7 +5,7 @@ import viewmodel.DewItViewModel
 import viewmodel.GtdModel
 
 
-open class ModelSaver(private val fileName: String, private val defaultModel: DewItViewModel) {
+open class ModelSaver(private val fileName: String, defaultModel: DewItViewModel) {
     var model = defaultModel
 
     open fun save() {
@@ -16,7 +16,9 @@ open class ModelSaver(private val fileName: String, private val defaultModel: De
     open fun load() {
         val appFile = AppFile(fileName)
         val json = appFile.readText()
-        model = json?.let { DewItViewModel.fromJson(it) } ?: GtdModel.createModel()
+        model = json?.let {
+            DewItViewModel.fromJson(it)
+        } ?: GtdModel.createModel()
     }
 
     companion object{

@@ -1,5 +1,6 @@
 package resources
 
+import androidx.test.platform.app.InstrumentationRegistry
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -8,6 +9,10 @@ import kotlin.test.Test
 
 class WritesAppFileAndroidTest {
     val appFile = AppFile("appFile.json")
+
+    init {
+        AppFile.context = InstrumentationRegistry.getInstrumentation().targetContext
+    }
 
     @BeforeTest
     fun setup() {

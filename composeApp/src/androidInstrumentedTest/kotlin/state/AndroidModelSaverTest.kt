@@ -29,7 +29,7 @@ class AndroidModelSaverTest {
 
     @Test
     fun androidModelSaverCreatesASaveFile() {
-        val androidModelSaver: ModelSaver = AndroidModelSaver(fileName, model)
+        val androidModelSaver = ModelSaver(fileName, model)
 
         saveFile.exists().shouldBeFalse()
 
@@ -41,11 +41,11 @@ class AndroidModelSaverTest {
 
     @Test
     fun androidModelSaverLoadsASavedFile() {
-        val androidModelSaver: ModelSaver = AndroidModelSaver(fileName, model)
+        val saveModel = ModelSaver(fileName, model)
 
-        androidModelSaver.save()
-
-        val loadedModel = androidModelSaver.load()
-        loadedModel.shouldBeEqualUsingFields(model)
+        saveModel.save()
+        val loadModel = ModelSaver(fileName, model)
+        loadModel.load()
+        loadModel.model.shouldBeEqualUsingFields(model)
     }
 }

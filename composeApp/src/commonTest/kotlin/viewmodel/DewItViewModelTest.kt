@@ -15,7 +15,7 @@ class DewItViewModelTest {
     @Test
     fun `DewItViewModel provides a mutable state of mutable list`() {
         // Given
-        val viewModel = DewItViewModel()
+        val viewModel = DewItViewModel(item = Item())
 
         // When
         val itemsState = viewModel.itemsState
@@ -27,7 +27,7 @@ class DewItViewModelTest {
     @Test
     fun `When DewItViewModel is created the mutable list is empty`() {
         // Given
-        val viewModel = DewItViewModel()
+        val viewModel = DewItViewModel(item = Item())
 
         // When
         val items = viewModel.itemsState.value
@@ -67,12 +67,16 @@ class DewItViewModelTest {
     fun `DewItViewModel reconstituted with one item in list`() {
         // Given
         val viewModelJson = """
-            [
+            {
+            "content": "Root",
+            "subItems":[
                 {
                     "content":"Inbox"
                     ,"subItems":[]
                 }
-            ]
+            ],
+            "id":"::ROOT_UUID::"
+            }
             """.trimIndent()
 
         // When
@@ -118,20 +122,23 @@ class DewItViewModelTest {
         val uuid2 = "::UUID 2::"
         val subContent = "Sub Item"
         val subId = "::SUB_UUID::"
-        val viewModel = makeDewItModel(subContent, subId, content1, uuid1, content2, uuid2)
+        val rootId = "::ROOT_UUID::"
+        val viewModel = makeDewItModel(subContent, subId, content1, uuid1, content2, uuid2, rootId)
 
 
         // When
         val viewModelJson = viewModel.toJson()
 
-        val expectedJson = expected(content1, uuid1, content2, subContent, subId, uuid2)
+        val expectedJson = expected(content1, uuid1, content2, subContent, subId, uuid2, rootId)
 
         viewModelJson.shouldEqualJson(expectedJson)
     }
 
     private fun makeJsonOfDewItModelWithTwoItems(): String {
         val viewModelJson = """
-                [
+            {
+                "content":"Root",
+                "subItems":[
                     {
                         "content":"Inbox"
                         ,"subItems":[
@@ -150,7 +157,9 @@ class DewItViewModelTest {
                         ,"id":"::OTHER_UUID::"
                     }
                 ]
-                """.trimIndent()
+                ,"id":"::ROOT_UUID::"
+            }    
+            """.trimIndent()
         return viewModelJson
     }
 
@@ -161,7 +170,8 @@ class DewItViewModelTest {
         content1: String,
         uuid1: String,
         content2: String,
-        uuid2: String
+        uuid2: String,
+        rootId: String
     ): DewItViewModel {
         val subItem = Item(subContent, id = subId)
         val item1 = Item(content1, id = uuid1)
@@ -171,8 +181,7 @@ class DewItViewModelTest {
             id = uuid2
         )
         val items = listOf(item1, item2)
-        val viewModel = DewItViewModel(items)
-        return viewModel
+        return DewItViewModel(Item("Root", items.toMutableList(), rootId))
     }
 
     private fun expected(
@@ -181,9 +190,12 @@ class DewItViewModelTest {
         content2: String,
         subContent: String,
         subId: String,
-        uuid2: String
+        uuid2: String,
+        rootId: String
     ) = """
-                [
+        {
+                "content":"Root",
+                "subItems":[
                     {
                         "content":"$content1",
                         "id":"$uuid1"
@@ -198,5 +210,8 @@ class DewItViewModelTest {
                         ],
                         "id":"$uuid2"
                     }
-                ]""".trimIndent()
+                ],
+                "id":"$rootId"
+        }
+        """.trimIndent()
 }

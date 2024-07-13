@@ -7,6 +7,8 @@ data class ItemWorkflow(val item: Item, val destination: Item, val actionType: A
     fun execute() {
         when(actionType) {
             ActionType.Copy -> {
+                if(destination.equals(item))
+                    return
                 destination.add(item)
             }
         }

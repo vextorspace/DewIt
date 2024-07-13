@@ -1,5 +1,6 @@
 package model
 
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -53,5 +54,21 @@ class ItemWorkflowTest {
         // Then
         copyToParent.subItems.shouldContainExactly(child)
         item.subItems.shouldContainExactly(child)
+    }
+
+    @Test
+    fun `Cannot copy item to itself`() {
+        // Given
+        val item = Item("parent")
+        val child = Item("child")
+        item.add(child)
+
+        val itemWorkflow = ItemWorkflow(child, child, ActionType.Copy)
+
+        // When
+        itemWorkflow.execute()
+
+        // Then
+        child.subItems.shouldBeEmpty()
     }
 }

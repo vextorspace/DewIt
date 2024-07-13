@@ -94,4 +94,20 @@ class ItemWorkflowTest {
         item.subItems.shouldContainExactly(child)
         child.subItems.shouldBeEmpty()
     }
+
+    @Test
+    fun `Move does nothing if destination is source`() {
+        // Given
+        val item = Item("parent")
+        val child = Item("child")
+        item.add(child)
+
+        val itemWorkflow = ItemWorkflow(child, item, item, ActionType.MOVE,)
+
+        // When
+        itemWorkflow.execute()
+
+        // Then
+        item.subItems.shouldContainExactly(child)
+    }
 }

@@ -3,6 +3,7 @@ package model
 import kotlinx.serialization.Serializable
 
 @Serializable
-class ItemWorkflow {
+data class ItemWorkflow(val destination: Item) {
+
 
 }

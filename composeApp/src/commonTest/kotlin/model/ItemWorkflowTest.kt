@@ -60,6 +60,22 @@ class ItemWorkflowTest {
     }
 
     @Test
+    fun `Copy does nothing if source is destination`() {
+        // Given
+        val item = Item("parent")
+        val child = Item("child")
+        item.add(child)
+
+        val itemWorkflow = ItemWorkflow(child, item, item, ActionType.Copy,)
+
+        // When
+        itemWorkflow.execute()
+
+        // Then
+        item.subItems.shouldContainExactly(child)
+    }
+
+    @Test
     fun `When executing the move action on an ItemWorkflow it should remove from parent and add to destination`() {
         // Given
         val item = Item("parent")

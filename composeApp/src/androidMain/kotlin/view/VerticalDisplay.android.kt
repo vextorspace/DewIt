@@ -16,7 +16,7 @@ actual class VerticalDisplay actual constructor(
     @Composable
     actual fun Compose() {
         LazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.Start
         ) {
             items(parentItemsState.value) { item ->
                 key(item.id) {

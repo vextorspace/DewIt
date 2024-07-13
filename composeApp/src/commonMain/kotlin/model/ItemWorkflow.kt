@@ -17,6 +17,8 @@ data class ItemWorkflow(
                 destination.add(item)
             }
             ActionType.MOVE -> {
+                if(destination.equals(item))
+                    return
                 destination.add(item)
                 source.remove(item)
             }

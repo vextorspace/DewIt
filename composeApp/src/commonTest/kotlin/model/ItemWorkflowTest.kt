@@ -77,4 +77,21 @@ class ItemWorkflowTest {
         copyToParent.subItems.shouldContainExactly(child)
         item.subItems.shouldBeEmpty()
     }
+
+    @Test
+    fun `Move does nothing if destination is the same as the item`() {
+        // Given
+        val item = Item("parent")
+        val child = Item("child")
+        item.add(child)
+
+        val itemWorkflow = ItemWorkflow(child, item, child, ActionType.MOVE,)
+
+        // When
+        itemWorkflow.execute()
+
+        // Then
+        item.subItems.shouldContainExactly(child)
+        child.subItems.shouldBeEmpty()
+    }
 }

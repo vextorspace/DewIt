@@ -15,7 +15,7 @@ class DewItViewModelTest {
     @Test
     fun `DewItViewModel provides a mutable state of mutable list`() {
         // Given
-        val viewModel = DewItViewModel(item = Item())
+        val viewModel = DewItViewModel(rootItem = Item())
 
         // When
         val itemsState = viewModel.itemsState
@@ -27,7 +27,7 @@ class DewItViewModelTest {
     @Test
     fun `When DewItViewModel is created the mutable list is empty`() {
         // Given
-        val viewModel = DewItViewModel(item = Item())
+        val viewModel = DewItViewModel(rootItem = Item())
 
         // When
         val items = viewModel.itemsState.value

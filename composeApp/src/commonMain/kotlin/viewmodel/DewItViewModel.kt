@@ -4,19 +4,27 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import kotlinx.serialization.json.Json
 import model.Item
+import model.visitors.FindItemByIdAction
+import model.visitors.ItemVisitor
 
-class DewItViewModel(val item: Item = Item()) {
+class DewItViewModel(val rootItem: Item = Item()) {
     constructor(initialItems: List<Item>) : this(Item("Root", initialItems.toMutableList()))
 
-    val itemsState: MutableState<MutableList<Item>> = mutableStateOf(item.subItems)
+    val itemsState: MutableState<MutableList<Item>> = mutableStateOf(rootItem.subItems)
 
     fun toJson(): String {
         return encoder
-            .encodeToString(Item.serializer(), item)
+            .encodeToString(Item.serializer(), rootItem)
     }
 
     fun addItem(newItem: Item) {
-        item.add(newItem)
+        rootItem.add(newItem)
+    }
+
+    fun findItemById(idToFind: String): Item? {
+        val findItemByIdAction = FindItemByIdAction(idToFind)
+        ItemVisitor(findItemByIdAction).visit(rootItem)
+        return findItemByIdAction.item
     }
 
     companion object {

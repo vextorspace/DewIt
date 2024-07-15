@@ -1,6 +1,7 @@
-package model
+package model.visitors
 
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
+import model.Item
 import kotlin.test.Test
 
 class ItemVisitorVisitsAllSubItemsTest {

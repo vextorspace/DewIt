@@ -7,11 +7,11 @@ import viewmodel.DewItViewModel
 data class ItemWorkflow(
     val source: String,
     val destination: String,
-    val actionType: ActionType = ActionType.Copy
+    val actionType: ActionType = ActionType.COPY
 ) {
     fun execute(item: Item, model: DewItViewModel) {
         when(actionType) {
-            ActionType.Copy -> {
+            ActionType.COPY -> {
                 if(destination == item.id)
                     return
                 model.findItemById(destination)?.add(item)

@@ -21,7 +21,7 @@ class ItemWorkflowTest {
 
         // Then
         actionType.shouldBeInstanceOf<ActionType>()
-            .shouldBe(ActionType.Copy)
+            .shouldBe(ActionType.COPY)
     }
 
     @Test
@@ -36,7 +36,7 @@ class ItemWorkflowTest {
         val itemWorkflow = ItemWorkflow(
             source = parent.id,
             destination = copyToParent.id,
-            actionType = ActionType.Copy
+            actionType = ActionType.COPY
         )
 
         // When
@@ -55,7 +55,7 @@ class ItemWorkflowTest {
         parent.add(child)
         val model = DewItViewModel(listOf(parent))
 
-        val itemWorkflow = ItemWorkflow(parent.id, child.id, ActionType.Copy,)
+        val itemWorkflow = ItemWorkflow(parent.id, child.id, ActionType.COPY,)
 
         // When
         itemWorkflow.execute(child, model)
@@ -72,7 +72,7 @@ class ItemWorkflowTest {
         parent.add(child)
         val model = DewItViewModel(listOf(parent))
 
-        val itemWorkflow = ItemWorkflow(parent.id, parent.id, ActionType.Copy,)
+        val itemWorkflow = ItemWorkflow(parent.id, parent.id, ActionType.COPY,)
 
         // When
         itemWorkflow.execute(child, model)

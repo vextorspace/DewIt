@@ -51,4 +51,105 @@ class PedigreeFinderTest {
         // Then
         pedigree.shouldContainExactly(root, child)
     }
+
+    @Test
+    fun `looking for pedigree works with multiple children`() {
+        // Given
+        val root = Item("Root")
+        val child1 = Item("Child1")
+        val child2 = Item("Child2")
+        root.add(child1)
+        root.add(child2)
+
+        val finder = PedigreeFinder(root)
+
+        // When
+        val pedigree = finder.findPedigree(child2)
+
+        // Then
+        pedigree.shouldContainExactly(root, child2)
+    }
+
+    @Test
+    fun `looking for pedigree works with multiple generations`() {
+        // Given
+        val root = Item("Root")
+        val child1 = Item("Child1")
+        val child2 = Item("Child2")
+        val grandchild = Item("Grandchild")
+        root.add(child1)
+        root.add(child2)
+        child2.add(grandchild)
+
+        val finder = PedigreeFinder(root)
+
+        // When
+        val pedigree = finder.findPedigree(grandchild)
+
+        // Then
+        pedigree.shouldContainExactly(root, child2, grandchild)
+    }
+
+    @Test
+    fun `looking for pedigree works with multiple generations and multiple children`() {
+        // Given
+        val root = Item("Root")
+        val child1 = Item("Child1")
+        val child2 = Item("Child2")
+        val grandchild1 = Item("Grandchild1")
+        val grandchild2 = Item("Grandchild2")
+        root.add(child1)
+        root.add(child2)
+        child2.add(grandchild1)
+        child2.add(grandchild2)
+
+        val finder = PedigreeFinder(root)
+
+        // When
+        val pedigree = finder.findPedigree(child1)
+
+        // Then
+        pedigree.shouldContainExactly(root, child1)
+    }
+
+    @Test
+    fun `findChildToItem works one level down`() {
+        // Given
+        val root = Item("Root")
+        val child = Item("Child")
+        val grandChild = Item("Grandchild")
+        root.add(child)
+        child.add(grandChild)
+
+        val finder = PedigreeFinder(root)
+
+        // When
+        val pedigree = finder.findChildToItem(grandChild)
+
+        // Then
+        pedigree.shouldContainExactly(child, grandChild)
+    }
+
+    @Test
+    fun `findChildToItem returns empty list if no path`() {
+        // Given
+        val root = Item("Root")
+        val child = Item("Child")
+        val child2 = Item("Child2")
+        val grandchild2 = Item("Grandchild2")
+        val grandChild = Item("Grandchild")
+        root.add(child)
+        root.add(child2)
+        child.add(grandChild)
+        child2.add(grandchild2)
+
+        val finder = PedigreeFinder(child)
+
+        // When
+        val pedigree = finder.findChildToItem(grandchild2)
+
+        // Then
+        pedigree.shouldBeEmpty()
+
+    }
 }

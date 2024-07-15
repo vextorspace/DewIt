@@ -35,4 +35,20 @@ class PedigreeFinderTest {
         // Then
         pedigree.shouldBeEmpty()
     }
+
+    @Test
+    fun `looking for pedigree forwards returns list of items`() {
+        // Given
+        val root = Item("Root")
+        val child = Item("Child")
+        root.add(child)
+
+        val finder = PedigreeFinder(root)
+
+        // When
+        val pedigree = finder.findPedigree(child)
+
+        // Then
+        pedigree.shouldContainExactly(root, child)
+    }
 }

@@ -21,22 +21,22 @@ class GtdModelHasWorkflowsTest {
 
         // When
         val targetList = table(
-            headers("source","target"),
-            row("Inbox","todo"),
-            row("Inbox","projects"),
-            row("Inbox", "someday maybe"),
-            row("Inbox", "references")
+            headers("source","target", "type"),
+            row("Inbox","todo", ActionType.MOVE),
+            row("Inbox","projects", ActionType.MOVE),
+            row("Inbox", "someday maybe", ActionType.MOVE),
+            row("Inbox", "references", ActionType.MOVE)
         )
 
         // Then
-        forAll(targetList) { source, target ->
+        forAll(targetList) { source, target, type ->
             val sourceItems = model.findContainingContent(source)
             val sourceItem = sourceItems.shouldNotBeNull()
                 .shouldHaveSize(1)
                 .first()
             val workflows = sourceItem.workflows
 
-            workflows.filter { it.actionType == ActionType.MOVE }
+            workflows.filter { it.actionType == type }
                 .filter {
                     model.findById(it.destination)
                         ?.content

@@ -26,9 +26,13 @@ class GtdModelHasWorkflowsTest {
             row("Inbox","projects", ActionType.MOVE),
             row("Inbox", "someday maybe", ActionType.MOVE),
             row("Inbox", "references", ActionType.MOVE),
+
             row("Projects", "todo", ActionType.COPY),
             row("Projects", "someday maybe", ActionType.MOVE),
-            row("Projects", "waiting on", ActionType.MOVE)
+            row("Projects", "waiting on", ActionType.MOVE),
+
+            row("Someday Maybe", "projects", ActionType.MOVE),
+            row("Waiting On", "projects", ActionType.MOVE)
         )
 
         // Then

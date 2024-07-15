@@ -3,9 +3,16 @@ package model
 import ids.UUID
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import model.visitors.FindItemByIdAction
+import model.visitors.ItemVisitor
 
 @Serializable
-data class Item(var content: String = "New Item", val subItems: MutableList<Item> = mutableListOf(), val id: String = UUID.generateUUID(), val workflow: MutableList<ItemWorkflow> = mutableListOf()) {
+data class Item(
+    var content: String = "New Item",
+    val subItems: MutableList<Item> = mutableListOf(),
+    val id: String = UUID.generateUUID(),
+    val workflow: MutableList<ItemWorkflow> = mutableListOf()
+) {
     constructor(content: String) : this(content, mutableListOf())
     constructor(content: String, subItems: Collection<Item>) : this(content, subItems.toMutableList())
 
@@ -24,6 +31,12 @@ data class Item(var content: String = "New Item", val subItems: MutableList<Item
     fun toJson(): String {
         return encoder
             .encodeToString(serializer(), this)
+    }
+
+    fun findItemById(idToFind: String): Item? {
+        val findItemByIdAction = FindItemByIdAction(idToFind)
+        ItemVisitor(findItemByIdAction).visit(this)
+        return findItemByIdAction.item
     }
 
     companion object {

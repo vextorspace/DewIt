@@ -24,6 +24,14 @@ class DewItViewModel(val rootItem: Item = Item()) {
     fun findItemById(idToFind: String): Item? {
         return rootItem.findItemById(idToFind)
     }
+    
+    fun findContainingContent(content: String): List<Item> {
+        return rootItem.findItemContaining(content)
+    }
+
+    fun findById(itemId: String): Item? {
+        return rootItem.findItemById(itemId)
+    }
 
     companion object {
         val encoder = Json { ignoreUnknownKeys = true }

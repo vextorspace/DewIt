@@ -28,6 +28,12 @@ data class Item(
         subItems.remove(subItem)
     }
 
+    fun findItemContaining(content: String): List<Item> {
+        val finder = ItemVisitorActionFindItemContaining(content)
+        ItemVisitor(finder).visit(this)
+        return finder.items
+    }
+
     fun toJson(): String {
         return encoder
             .encodeToString(serializer(), this)
@@ -39,6 +45,10 @@ data class Item(
         return findItemByIdAction.item
     }
 
+    fun addWorkflow(itemWorkflow: ItemWorkflow) {
+        workflows.add(itemWorkflow)
+    }
+
     companion object {
         val encoder = Json { ignoreUnknownKeys = true }
 
@@ -46,5 +56,4 @@ data class Item(
             return encoder.decodeFromString<Item?>(itemJson)
         }
     }
-
 }

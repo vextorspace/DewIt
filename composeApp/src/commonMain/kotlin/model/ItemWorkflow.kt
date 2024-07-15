@@ -1,28 +1,28 @@
 package model
 
 import kotlinx.serialization.Serializable
+import viewmodel.DewItViewModel
 
 @Serializable
 data class ItemWorkflow(
-    val item: Item,
-    val source: Item,
-    val destination: Item,
+    val source: String,
+    val destination: String,
     val actionType: ActionType = ActionType.Copy
 ) {
-    fun execute() {
+    fun execute(item: Item, model: DewItViewModel) {
         when(actionType) {
             ActionType.Copy -> {
-                if(destination.equals(item))
+                if(destination == item.id)
                     return
-                destination.add(item)
+                model.findItemById(destination)?.add(item)
             }
             ActionType.MOVE -> {
-                if(destination.equals(item))
+                if(destination == item.id)
                     return
-                if(destination.equals(source))
+                if(destination == source)
                     return
-                destination.add(item)
-                source.remove(item)
+                model.findItemById(destination)?.add(item)
+                model.findItemById(source)?.remove(item)
             }
         }
     }

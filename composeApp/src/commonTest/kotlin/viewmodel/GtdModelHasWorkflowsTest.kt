@@ -18,16 +18,17 @@ class GtdModelHasWorkflowsTest {
     fun `GtdModel inbox has move to todo and projects`() {
         // Given
         val model = GtdModel.createModel()
+
+        // When
         val targetList = table(
             headers("source","target"),
             row("Inbox","todo"),
-            row("Inbox","projects")
+            row("Inbox","projects"),
+            row("Inbox", "someday maybe"),
+            row("Inbox", "references")
         )
 
-
-
-
-
+        // Then
         forAll(targetList) { source, target ->
             val sourceItems = model.findContainingContent(source)
             val sourceItem = sourceItems.shouldNotBeNull()

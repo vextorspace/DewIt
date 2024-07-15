@@ -21,8 +21,7 @@ class ItemWorkflowTest {
 
         // Then
         actionType.shouldBeInstanceOf<ActionType>()
-
-        actionType.shouldBe(ActionType.Copy)
+            .shouldBe(ActionType.Copy)
     }
 
     @Test

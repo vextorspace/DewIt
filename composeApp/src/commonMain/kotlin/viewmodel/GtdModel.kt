@@ -50,6 +50,7 @@ object GtdModel {
         projects.addWorkflow(ItemWorkflow(projects.id, waiting.id, ActionType.MOVE))
         projects.addWorkflow(ItemWorkflow(projects.id, todo.id, ActionType.COPY))
 
+
         val root = Item("Root")
         root.subItems.addAll(itemList)
 

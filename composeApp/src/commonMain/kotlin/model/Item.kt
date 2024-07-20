@@ -51,7 +51,7 @@ data class Item(
 
     fun findFirstWorkflows(): List<ItemWorkflow> {
         if(workflows.isNotEmpty())
-            return workflows
+            return workflows.toList()
         return emptyList()
     }
 

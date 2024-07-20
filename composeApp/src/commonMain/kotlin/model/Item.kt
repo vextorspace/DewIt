@@ -49,6 +49,12 @@ data class Item(
         workflows.add(itemWorkflow)
     }
 
+    fun findFirstWorkflows(): List<ItemWorkflow> {
+        if(workflows.isNotEmpty())
+            return workflows
+        return emptyList()
+    }
+
     companion object {
         val encoder = Json { ignoreUnknownKeys = true }
 

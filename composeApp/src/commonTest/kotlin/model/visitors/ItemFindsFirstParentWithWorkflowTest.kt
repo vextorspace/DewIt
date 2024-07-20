@@ -1,11 +1,8 @@
 package model.visitors
 
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldNotContain
-import io.kotest.matchers.equals.shouldNotBeEqual
-import io.kotest.matchers.shouldNotBe
-import io.kotest.matchers.types.shouldBeInstanceOf
-import io.kotest.matchers.types.shouldNotHaveSameHashCodeAs
 import model.ActionType
 import model.Item
 import model.ItemWorkflow
@@ -18,8 +15,9 @@ class ItemFindsFirstParentWithWorkflowTest {
         val item = Item()
         val itemWorkflow = ItemWorkflow("::SOURCE::", "::DESTINATION::", ActionType.COPY)
         item.addWorkflow(itemWorkflow)
+        val pedigreeFinder = PedigreeFinder(item)
 
-        val workflows: List<ItemWorkflow> = item.findFirstWorkflows()
+        val workflows: List<ItemWorkflow> = item.findFirstWorkflows(pedigreeFinder)
 
         workflows.shouldContainExactly(itemWorkflow)
     }
@@ -30,8 +28,9 @@ class ItemFindsFirstParentWithWorkflowTest {
         val itemWorkflow = ItemWorkflow("::SOURCE::", "::DESTINATION::", ActionType.COPY)
         item.addWorkflow(itemWorkflow)
         val workflowNotThere = ItemWorkflow("::OTHER SOURCE::","::OTHER DESTINATION::", ActionType.COPY)
+        val pedigreeFinder = PedigreeFinder(item)
 
-        val workflows = item.findFirstWorkflows()
+        val workflows = item.findFirstWorkflows(pedigreeFinder)
 
         item.addWorkflow(workflowNotThere)
 
@@ -39,6 +38,21 @@ class ItemFindsFirstParentWithWorkflowTest {
 
     }
 
+    @Test
+    fun `if no workflowsfound empty returned`() {
+        val grandparent = Item("grandparent")
+        val parent = Item("parent")
+        val child = Item("child")
+
+        grandparent.add(parent)
+        parent.add(child)
+        val pedigreeFinder = PedigreeFinder(grandparent)
+
+        child.findFirstWorkflows(pedigreeFinder).shouldBeEmpty()
+        parent.findFirstWorkflows(pedigreeFinder).shouldBeEmpty()
+        grandparent.findFirstWorkflows(pedigreeFinder).shouldBeEmpty()
+
+    }
 
     @Test
     fun `if no workflows and grandparent has workflows finds those`() {
@@ -50,10 +64,11 @@ class ItemFindsFirstParentWithWorkflowTest {
         grandparent.add(parent)
         grandparent.addWorkflow(workflow)
         parent.add(child)
+        val pedigreeFinder = PedigreeFinder(grandparent)
 
-        child.findFirstWorkflows().shouldContainExactly(workflow)
-        parent.findFirstWorkflows().shouldContainExactly(workflow)
-        grandparent.findFirstWorkflows().shouldContainExactly(workflow)
+        child.findFirstWorkflows(pedigreeFinder).shouldContainExactly(workflow)
+        parent.findFirstWorkflows(pedigreeFinder).shouldContainExactly(workflow)
+        grandparent.findFirstWorkflows(pedigreeFinder).shouldContainExactly(workflow)
     }
 
 

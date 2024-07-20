@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import model.visitors.FindItemByIdAction
 import model.visitors.ItemVisitor
+import model.visitors.PedigreeFinder
 
 @Serializable
 data class Item(
@@ -49,10 +50,14 @@ data class Item(
         workflows.add(itemWorkflow)
     }
 
-    fun findFirstWorkflows(): List<ItemWorkflow> {
+    fun findFirstWorkflows(pedigreeFinder: PedigreeFinder): List<ItemWorkflow> {
         if(workflows.isNotEmpty())
             return workflows.toList()
-        return emptyList()
+
+        val pedigree = pedigreeFinder.findPedigree(this)
+        if(pedigree.size < 2)
+            return emptyList()
+        return pedigree.reversed().drop(1).first().findFirstWorkflows(pedigreeFinder)
     }
 
     companion object {

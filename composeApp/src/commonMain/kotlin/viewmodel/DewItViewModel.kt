@@ -5,49 +5,30 @@ import androidx.compose.runtime.mutableStateOf
 import kotlinx.serialization.json.Json
 import model.Item
 
-class DewItViewModel(val rootItem: Item = Item()) {
-    constructor(initialItems: List<Item>)
-            : this(Item("Root", initialItems.toMutableList()))
+class DewItViewModel(val item: Item = Item()) {
+    constructor(initialItems: List<Item>) : this(Item("Root", initialItems.toMutableList()))
 
-    val itemsState: MutableState<MutableList<Item>>
-            = mutableStateOf(rootItem.subItems)
+    val itemsState: MutableState<MutableList<Item>> = mutableStateOf(item.subItems)
 
     fun toJson(): String {
         return encoder
-            .encodeToString(Item.serializer(), rootItem)
+            .encodeToString(Item.serializer(), item)
     }
 
     fun addItem(newItem: Item) {
-        rootItem.add(newItem)
-    }
-
-    fun findItemById(idToFind: String): Item? {
-        return rootItem.findItemById(idToFind)
-    }
-    
-    fun findContainingContent(content: String): List<Item> {
-        return rootItem.findItemContaining(content)
-    }
-
-    fun findById(itemId: String): Item? {
-        return rootItem.findItemById(itemId)
+        item.add(newItem)
     }
 
     companion object {
         val encoder = Json { ignoreUnknownKeys = true }
 
         fun fromJson(viewModelJson: String): DewItViewModel {
+            val withoutSpaces = viewModelJson.replace("\\s".toRegex(), "")
 
-            if(emptyJson(viewModelJson))
+            if(withoutSpaces.isEmpty() || withoutSpaces == "[]")
                 return DewItViewModel()
 
-            return loadMostRecentModel(encoder, viewModelJson)
-        }
-
-        private fun loadMostRecentModel(
-            decoder: Json,
-            viewModelJson: String
-        ): DewItViewModel {
+            val decoder = Json { ignoreUnknownKeys = true }
             try {
                 val item: Item = decoder.decodeFromString(viewModelJson)
                 return DewItViewModel(item)
@@ -56,22 +37,15 @@ class DewItViewModel(val rootItem: Item = Item()) {
             }
         }
 
-        private fun fromV0Json(viewModelJson: String): DewItViewModel {
+        fun fromV0Json(viewModelJson: String): DewItViewModel {
             val withoutSpaces = viewModelJson.replace("\\s".toRegex(), "")
 
-            if(emptyJson(withoutSpaces))
+            if(withoutSpaces.isEmpty() || withoutSpaces == "[]")
                 return DewItViewModel()
 
             val decoder = Json { ignoreUnknownKeys = true }
             val items: List<Item> = decoder.decodeFromString(viewModelJson)
-
             return DewItViewModel(items)
-        }
-
-        private fun emptyJson(viewModelJson: String): Boolean {
-            val withoutSpaces = viewModelJson.replace("\\s".toRegex(), "")
-
-            return withoutSpaces.isEmpty() || withoutSpaces == "[]"
         }
     }
 }

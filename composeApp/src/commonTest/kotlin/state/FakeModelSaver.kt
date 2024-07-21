@@ -3,7 +3,7 @@ package state
 import model.Item
 import viewmodel.DewItViewModel
 
-class FakeModelSaver: ModelSaver("fake", DewItViewModel(rootItem = Item())) {
+class FakeModelSaver: ModelSaver("fake", DewItViewModel(item = Item())) {
     var saveCalled = false
     var loadCalled = false
 

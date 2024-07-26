@@ -19,6 +19,10 @@ class DewItViewModel(val item: Item = Item()) {
         item.add(newItem)
     }
 
+    fun viewRoot(): ViewItem {
+        return ViewItem(item)
+    }
+
     companion object {
         val encoder = Json { ignoreUnknownKeys = true }
 

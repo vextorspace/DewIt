@@ -56,6 +56,8 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(libs.kotest.assertions.core)
                 implementation(libs.kotest.assertions.json)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.uiTest)
             }
         }
         val desktopTest by getting{
@@ -71,6 +73,7 @@ kotlin {
                 implementation(libs.androidx.test.junit)
                 implementation(libs.androidx.test.runner)
                 implementation(libs.kotest.assertions.core)
+                implementation(libs.compose.ui.test)
             }
         }
         val androidUnitTest by getting {
@@ -78,6 +81,7 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(libs.robolectric)
                 implementation(libs.androidx.test.core.ktx)
+                implementation(libs.compose.ui.test)
             }
         }
     }

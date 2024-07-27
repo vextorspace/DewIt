@@ -38,6 +38,10 @@ class DewItViewModel(val item: ViewItem = ViewItem()) {
         return item.hashCode()
     }
 
+    fun allItems(): List<Item> {
+        return item.allItems()
+    }
+
     companion object {
         val encoder = Json { ignoreUnknownKeys = true }
 

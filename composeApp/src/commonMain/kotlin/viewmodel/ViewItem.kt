@@ -42,4 +42,8 @@ data class ViewItem(
         result = 31 * result + (parent?.hashCode() ?: 0)
         return result
     }
+
+    fun allItems(): List<Item> {
+        return subItems.flatMap { it.allItems() } + item
+    }
 }

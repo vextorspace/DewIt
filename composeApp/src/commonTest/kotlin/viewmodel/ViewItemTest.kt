@@ -82,4 +82,23 @@ class ViewItemTest {
         viewItem1.shouldNotBe(viewItem2)
     }
 
+    @Test
+    fun `can get all items`() {
+        val root = Item("Root")
+        val child1 = Item("Child1")
+        val child2 = Item("Child2")
+        val grandChild = Item("GrandChild")
+        root.add(child1)
+        root.add(child2)
+        child1.add(grandChild)
+        child2.add(grandChild)
+
+        val viewModel = DewItViewModel(root)
+        val viewItem: ViewItem = viewModel.item
+
+        val allItems = viewItem.allItems()
+
+        allItems.shouldContainAll(root, child1, child2, grandChild)
+    }
+
 }

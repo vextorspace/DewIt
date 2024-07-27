@@ -6,7 +6,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
 import model.Item
-import org.junit.Test
+import kotlin.test.Test
 
 class ItemCardMakerTest {
 
@@ -31,6 +31,33 @@ class ItemCardMakerTest {
         }
 
         onNodeWithText(itemContent)
+            .assertIsDisplayed()
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun `displays subitems`() = runComposeUiTest {
+        val itemContent = "::ITEMS CONTENT::"
+        val item = Item(itemContent)
+        val subItemContent = "::SUBITEMS CONTENT::"
+        val subItem = Item(subItemContent)
+        item.add(subItem)
+        val parentItems = mutableListOf<Item>()
+        val parentItemsState = mutableStateOf(parentItems)
+        val selectedCard = mutableStateOf<Item?>(null)
+        val statusText = mutableStateOf("")
+
+        setContent {
+            ItemCardMaker(
+                item,
+                parentItems,
+                parentItemsState,
+                selectedCard,
+                statusText
+            ).Compose()
+        }
+
+        onNodeWithText(subItemContent)
             .assertIsDisplayed()
     }
 }

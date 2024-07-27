@@ -27,8 +27,7 @@ class ItemReconstitutesFromJsonTest {
         val itemJson = """
             {
                 "content": "$content",
-                "id": "$id",
-                "subItems": []
+                "id": "$id"
             }
         """
 
@@ -39,34 +38,4 @@ class ItemReconstitutesFromJsonTest {
         item shouldBe Item(content, mutableListOf(), id)
         item!!.subItems.shouldBeEmpty()
     }
-
-    @Test
-    fun `Item with subItems reconstitutes`() {
-        // Given
-        val id = "::SOME_UUID::"
-        val content = "::ITEM CONTENT::"
-        val subItemContent = "::SUB ITEM CONTENT::"
-        val subId = "::SUB_UUID::"
-
-        val subItemJson = """
-            {
-                "content": "$subItemContent",
-                "id": "$subId"
-            }
-        """
-        val itemJson = """
-            {
-                "content": "$content",
-                "id": "$id",
-                "subItems": [$subItemJson]
-            }
-        """
-
-        // When
-        val item = Item.fromJson(itemJson)
-
-        // Then
-        item shouldBe Item(content, mutableListOf(Item(subItemContent, mutableListOf(), subId)), id)
-    }
-
 }

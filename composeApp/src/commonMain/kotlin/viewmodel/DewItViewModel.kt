@@ -5,22 +5,37 @@ import androidx.compose.runtime.mutableStateOf
 import kotlinx.serialization.json.Json
 import model.Item
 
-class DewItViewModel(val item: Item = Item()) {
+class DewItViewModel(val item: ViewItem = ViewItem()) {
+    constructor(item: Item) : this(ViewItem(item))
     constructor(initialItems: List<Item>) : this(Item("Root", initialItems.toMutableList()))
 
-    val itemsState: MutableState<MutableList<Item>> = mutableStateOf(item.subItems)
+    val itemsState: MutableState<MutableList<ViewItem>> = mutableStateOf(item.subItems)
 
     fun toJson(): String {
         return encoder
-            .encodeToString(Item.serializer(), item)
+            .encodeToString(Item.serializer(), item.item)
+    }
+
+    fun addItem(newItem: ViewItem) {
+        addItem(newItem.item)
     }
 
     fun addItem(newItem: Item) {
-        item.add(newItem)
+        if(item.subItems.map { it.id }.contains(newItem.id))
+            return
+        item.add(ViewItem(newItem))
     }
 
-    fun viewRoot(): ViewItem {
-        return ViewItem(item)
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is DewItViewModel) return false
+
+        if(item != other.item) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return item.hashCode()
     }
 
     companion object {

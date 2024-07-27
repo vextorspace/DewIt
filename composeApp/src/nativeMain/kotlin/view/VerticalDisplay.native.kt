@@ -1,17 +1,16 @@
 package view
 
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import model.Item
+import viewmodel.ViewItem
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class VerticalDisplay actual constructor(
-    val selectedCard: MutableState<Item?>,
+    val selectedCard: MutableState<ViewItem?>,
     val statusText: MutableState<String>,
-    val parentItems: MutableList<Item>,
-    val parentItemsState: MutableState<MutableList<Item>>
+    val parentItems: MutableList<ViewItem>,
+    val parentItemsState: MutableState<MutableList<ViewItem>>
 ) {
     @Composable
     actual fun Compose() {

@@ -2,14 +2,14 @@ package view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import model.Item
+import viewmodel.ViewItem
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 expect class VerticalDisplay(
-    selectedCard: MutableState<Item?>,
+    selectedCard: MutableState<ViewItem?>,
     statusText: MutableState<String>,
-    parentItems: MutableList<Item>,
-    parentItemsState: MutableState<MutableList<Item>>
+    parentItems: MutableList<ViewItem>,
+    parentItemsState: MutableState<MutableList<ViewItem>>
 ) {
     @Composable
     fun Compose()

@@ -6,33 +6,33 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import model.Item
+import viewmodel.ViewItem
 
 class OnDeleteCard(
-    val item: Item,
-    val parentItems: MutableList<Item>,
-    val parentItemsState: MutableState<MutableList<Item>>,
+    val viewItem: ViewItem,
+    val parentItems: MutableList<ViewItem>,
+    val parentItemsState: MutableState<MutableList<ViewItem>>,
     val statusText: MutableState<String>
 ) {
     @Composable
     fun Compose() {
         IconButton(
             onClick = {
-                removeItemFromStateListThenParent(item)
-                statusText.value = "Status: deleting ${item.content}"
+                removeItemFromStateListThenParent(viewItem)
+                statusText.value = "Status: deleting ${viewItem.item.content}"
             }
         ) {
             Icon(Icons.Default.Delete, contentDescription = "Delete")
         }
     }
 
-    private fun removeItemFromStateListThenParent(item: Item) {
+    private fun removeItemFromStateListThenParent(item: ViewItem) {
         removeItemFromStateList(item, parentItemsState)
         parentItems.remove(item)
     }
 
     private fun removeItemFromStateList(
-        item: Item, parentListState: MutableState<MutableList<Item>>
+        item: ViewItem, parentListState: MutableState<MutableList<ViewItem>>
     ) {
         val newList = parentListState.value.toMutableList()
         newList.remove(item)

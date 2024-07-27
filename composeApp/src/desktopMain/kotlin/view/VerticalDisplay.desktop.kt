@@ -12,14 +12,14 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import model.Item
+import viewmodel.ViewItem
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class VerticalDisplay actual constructor(
-    val selectedCard: MutableState<Item?>,
+    val selectedCard: MutableState<ViewItem?>,
     val statusText: MutableState<String>,
-    val parentItems: MutableList<Item>,
-    val parentItemsState: MutableState<MutableList<Item>>
+    val parentItems: MutableList<ViewItem>,
+    val parentItemsState: MutableState<MutableList<ViewItem>>
 ){
     @Composable
     actual fun Compose() {

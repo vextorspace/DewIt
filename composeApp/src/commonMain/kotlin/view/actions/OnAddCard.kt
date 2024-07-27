@@ -9,11 +9,12 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import model.Item
+import viewmodel.ViewItem
 
 class OnAddCard(
     val statusText: MutableState<String>,
-    val items: MutableList<Item>,
-    val itemListState: MutableState<MutableList<Item>>
+    val items: MutableList<ViewItem>,
+    val itemListState: MutableState<MutableList<ViewItem>>
 ) {
 
     @Composable
@@ -40,12 +41,12 @@ class OnAddCard(
     }
 
     private fun addItemToParentItem(newItem: Item) {
-        items.add(newItem)
+        items.add(ViewItem(newItem))
     }
 
     private fun addItemToStateList(newItem: Item) {
         val newList = itemListState.value.toMutableList()
-        newList.add(newItem)
+        newList.add(ViewItem(newItem))
         itemListState.value = newList
     }
 }

@@ -48,7 +48,7 @@ class DewItViewModelTest {
 
         // Then
         viewModel.itemsState.value
-            .shouldContainExactly(item1, item2)
+            .shouldContainExactly(ViewItem(item1, viewModel.item), ViewItem(item2, viewModel.item))
     }
 
     @Test
@@ -99,7 +99,7 @@ class DewItViewModelTest {
 
         items.shouldHaveSize(2)
 
-        val expectedJson1 = Item(
+        val expectedItem1 = Item(
             "Inbox",
             mutableListOf(
                 Item("Review How You Use This App", id = "::CHILD_UUID::")
@@ -109,8 +109,8 @@ class DewItViewModelTest {
         val expectedItem2 = Item("Todo", mutableListOf(), "::OTHER_UUID::")
 
         items.shouldContainExactly(
-            expectedJson1,
-            expectedItem2
+            ViewItem(expectedItem1, viewModel.item),
+            ViewItem(expectedItem2, viewModel.item)
         )
     }
 

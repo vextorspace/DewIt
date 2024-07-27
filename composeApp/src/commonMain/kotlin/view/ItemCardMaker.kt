@@ -13,36 +13,36 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import model.Item
 import view.actions.OnAddCard
 import view.actions.OnDeleteCard
 import view.actions.OnEditCard
+import viewmodel.ViewItem
 
 class ItemCardMaker(
-    val item: Item,
-    val parentItems: MutableList<Item>,
-    val parentItemsState: MutableState<MutableList<Item>>,
-    val selectedCard: MutableState<Item?>,
+    val viewItem: ViewItem,
+    val parentItems: MutableList<ViewItem>,
+    val parentItemsState: MutableState<MutableList<ViewItem>>,
+    val selectedCard: MutableState<ViewItem?>,
     val statusText: MutableState<String>
 ) {
 
     @Composable
     fun Compose(topLevel: Boolean = false) {
-        val contentState = remember { mutableStateOf(item.content) }
-        val subItems = remember { mutableStateOf(item.subItems) }
+        val contentState = remember { mutableStateOf(viewItem.item.content) }
+        val subItems = remember { mutableStateOf(viewItem.subItems) }
 
         Card(
             modifier = Modifier
                 .padding(5.dp)
                 .clickable {
-                    selectedCard.value = item
+                    selectedCard.value = viewItem
                 }
                 .background(chooseBackgroundColor()),
             elevation = 5.dp
         ) {
             Column {
                 Row {
-                    if(item == selectedCard.value) {
+                    if(viewItem == selectedCard.value) {
                         Column(
                             modifier = Modifier.padding(5.dp)
                         ) {
@@ -51,7 +51,7 @@ class ItemCardMaker(
                                 value = contentState.value,
                                 onValueChange = {
                                     contentState.value = it
-                                    item.content = it
+                                    viewItem.item.content = it
                                 }
                             )
                             Button(
@@ -64,16 +64,16 @@ class ItemCardMaker(
                     } else {
                         Text(contentState.value)
                     }
-                    OnEditCard(selectedCard, item).Compose()
-                    OnAddCard(statusText, item.subItems, subItems).Compose()
-                    OnDeleteCard(item, parentItems, parentItemsState, statusText).Compose()
+                    OnEditCard(selectedCard, viewItem).Compose()
+                    OnAddCard(statusText, viewItem.subItems, subItems).Compose()
+                    OnDeleteCard(viewItem, parentItems, parentItemsState, statusText).Compose()
                 }
 
                 if(topLevel) {
                     VerticalDisplay(
                         selectedCard,
                         statusText,
-                        item.subItems,
+                        viewItem.subItems,
                         subItems
                     ).Compose()
                 } else {
@@ -81,7 +81,7 @@ class ItemCardMaker(
                         key(subItem.id) {
                             ItemCardMaker(
                                 subItem,
-                                item.subItems,
+                                viewItem.subItems,
                                 subItems,
                                 selectedCard,
                                 statusText
@@ -94,7 +94,7 @@ class ItemCardMaker(
     }
 
     private fun chooseBackgroundColor(): Color {
-        return if (selectedCard.value == item) {
+        return if (selectedCard.value == viewItem) {
             Color.DarkGray
         } else {
             Color.White

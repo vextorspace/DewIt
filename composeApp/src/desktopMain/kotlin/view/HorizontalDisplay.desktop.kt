@@ -10,25 +10,25 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import model.Item
+import viewmodel.ViewItem
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class HorizontalDisplay actual constructor(
     val statusText: MutableState<String>,
-    val itemList: MutableList<Item>,
-    val itemListState: MutableState<MutableList<Item>>
+    val itemList: MutableList<ViewItem>,
+    val itemListState: MutableState<MutableList<ViewItem>>
 ) {
     @Composable
     actual fun Compose() {
         val scrollState = rememberLazyListState()
-        val selectedItem = remember { mutableStateOf<Item?>(null) }
+        val selectedItem = remember { mutableStateOf<ViewItem?>(null) }
 
         Column(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
             LazyRow(state = scrollState, modifier = Modifier.weight(1f)) {
-                items(itemListState.value) { item ->
-                    key(item.id) {
+                items(itemListState.value) { viewItem ->
+                    key(viewItem.id) {
                         ItemCardMaker(
-                            item,
+                            viewItem,
                             itemList,
                             itemListState,
                             selectedItem,

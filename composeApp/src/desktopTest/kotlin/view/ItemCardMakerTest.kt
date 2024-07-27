@@ -6,6 +6,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
 import model.Item
+import viewmodel.ViewItem
 import kotlin.test.Test
 
 class ItemCardMakerTest {
@@ -15,14 +16,16 @@ class ItemCardMakerTest {
     fun `actually displays content`() = runComposeUiTest {
         val itemContent = "::ITEMS CONTENT::"
         val item = Item(itemContent)
-        val parentItems = mutableListOf<Item>()
+        val viewItem = ViewItem(item)
+
+        val parentItems = mutableListOf<ViewItem>()
         val parentItemsState = mutableStateOf(parentItems)
-        val selectedCard = mutableStateOf<Item?>(null)
+        val selectedCard = mutableStateOf<ViewItem?>(null)
         val statusText = mutableStateOf("")
 
         setContent {
             ItemCardMaker(
-                item,
+                viewItem,
                 parentItems,
                 parentItemsState,
                 selectedCard,
@@ -39,17 +42,18 @@ class ItemCardMakerTest {
     fun `displays subitems`() = runComposeUiTest {
         val itemContent = "::ITEMS CONTENT::"
         val item = Item(itemContent)
+        val viewItem = ViewItem(item)
         val subItemContent = "::SUBITEMS CONTENT::"
         val subItem = Item(subItemContent)
-        item.add(subItem)
-        val parentItems = mutableListOf<Item>()
+        viewItem.add(subItem)
+        val parentItems = mutableListOf<ViewItem>()
         val parentItemsState = mutableStateOf(parentItems)
-        val selectedCard = mutableStateOf<Item?>(null)
+        val selectedCard = mutableStateOf<ViewItem?>(null)
         val statusText = mutableStateOf("")
 
         setContent {
             ItemCardMaker(
-                item,
+                viewItem,
                 parentItems,
                 parentItemsState,
                 selectedCard,

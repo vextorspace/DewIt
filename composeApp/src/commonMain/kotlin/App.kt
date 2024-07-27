@@ -23,7 +23,11 @@ fun App(lifeCycle: LifeCycle) {
         topBar = {
             TopAppBar(
                 title = { Text("DewIt Now") },
-                actions = { OnAddCard(statusText, lifeCycle.model.itemsState.value, lifeCycle.model.itemsState).Compose() }
+                actions = { OnAddCard(
+                    statusText,
+                    lifeCycle.model.itemsState.value,
+                    lifeCycle.model.itemsState
+                ).Compose() }
             )
         },
         bottomBar = {

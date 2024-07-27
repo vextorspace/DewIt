@@ -11,7 +11,7 @@ class DewItViewModelCanModifyModelTest {
     fun `add item to list`() {
         // Given
         val viewModel = DewItViewModel(item = Item())
-        val item = Item("Item 1")
+        val item = ViewItem(Item("Item 1"), viewModel.item)
 
         // When
         viewModel.addItem(item)

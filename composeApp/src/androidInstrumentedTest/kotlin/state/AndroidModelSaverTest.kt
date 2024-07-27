@@ -3,7 +3,7 @@ package state
 import androidx.test.platform.app.InstrumentationRegistry
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
-import io.kotest.matchers.equality.shouldBeEqualUsingFields
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import resources.AppFile
 import viewmodel.GtdModel
@@ -46,6 +46,6 @@ class AndroidModelSaverTest {
         saveModel.save()
         val loadModel = ModelSaver(fileName, model)
         loadModel.load()
-        loadModel.model.shouldBeEqualUsingFields(model)
+        loadModel.model.shouldBe(model)
     }
 }

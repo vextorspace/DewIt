@@ -12,7 +12,7 @@ class ItemCardMakerTest {
 
     @OptIn(ExperimentalTestApi::class)
     @Test
-    fun testItemCardMakerIncludesContent() = runComposeUiTest {
+    fun `actually displays content`() = runComposeUiTest {
         val itemContent = "::ITEMS CONTENT::"
         val item = Item(itemContent)
         val parentItems = mutableListOf<Item>()

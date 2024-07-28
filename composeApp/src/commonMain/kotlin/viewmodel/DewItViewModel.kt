@@ -4,11 +4,13 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import kotlinx.serialization.json.Json
 import model.Item
+import model.SaveModel
 
 class DewItViewModel(val item: ViewItem = ViewItem()) {
     constructor(item: Item) : this(ViewItem(item))
     constructor(initialItems: List<Item>) : this(Item("Root", initialItems.toMutableList()))
 
+    val saveModel = SaveModel(this)
     val itemsState: MutableState<MutableList<ViewItem>> = mutableStateOf(item.subItems)
 
     fun toJson(): String {

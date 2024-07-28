@@ -18,14 +18,14 @@ class SaveModelTest {
         val viewModel = DewItViewModel(items)
 
         // When
-        val model = SaveModel(viewModel)
+        val saveModel = viewModel.saveModel
 
         // Then
-        model.items.shouldContainExactlyInAnyOrder(viewModel.item.item, item1, item2, child1)
+        saveModel.items.shouldContainExactlyInAnyOrder(viewModel.item.item, item1, item2, child1)
 
-        model.model.id shouldBe viewModel.item.item.id
-        model.model.subItems.map { it.id } shouldBe listOf(item1.id, item2.id)
-        model.model.subItems.filter { it.subItems.isNotEmpty() }.map { it.subItems.first().id } shouldBe listOf(child1.id)
+        saveModel.model.id shouldBe viewModel.item.item.id
+        saveModel.model.subItems.map { it.id } shouldBe listOf(item1.id, item2.id)
+        saveModel.model.subItems.filter { it.subItems.isNotEmpty() }.map { it.subItems.first().id } shouldBe listOf(child1.id)
     }
 
 }

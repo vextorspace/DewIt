@@ -46,4 +46,8 @@ data class ViewItem(
     fun allItems(): List<Item> {
         return subItems.flatMap { it.allItems() } + item
     }
+
+    fun allViewItems(): List<ViewItem> {
+        return subItems.flatMap { it.allViewItems() } + this
+    }
 }

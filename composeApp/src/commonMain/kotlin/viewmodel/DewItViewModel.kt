@@ -44,6 +44,14 @@ class DewItViewModel(val item: ViewItem = ViewItem()) {
         return item.allItems()
     }
 
+    fun findById(id: String): ViewItem? {
+        return allViewItems().firstOrNull { it.id == id }
+    }
+
+    fun allViewItems(): List<ViewItem> {
+        return item.allViewItems()
+    }
+
     companion object {
         val encoder = Json { ignoreUnknownKeys = true }
 
